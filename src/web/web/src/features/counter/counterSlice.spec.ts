@@ -1,7 +1,8 @@
 import counterReducer, {
     CounterState,
-    addItem, addItemsByBatch,
+    addItem, addItemsByBatch, addSelection,
 } from './counterSlice';
+import exp from "constants";
 
 const dummyItem = {
     name: 'coca'
@@ -12,11 +13,14 @@ const anotherDummyItem = {
 
 describe('counter reducer', () => {
     const initialState: CounterState = {
-        items: []
+        items: [],
+        selection: []
     };
+
     it('should handle initial state', () => {
         expect(counterReducer(undefined, {type: 'unknown'})).toEqual({
-            items: []
+            items: [],
+            selection: []
         });
     });
 
@@ -32,4 +36,13 @@ describe('counter reducer', () => {
         expect(actual.items[0]).toEqual(dummyItem);
         expect(actual.items[1]).toEqual(anotherDummyItem);
     });
+
+    it ('should increase counter by item', () => {
+        const intermediateState = counterReducer(initialState, addItem(dummyItem));
+        expect(intermediateState.selection.length).toEqual(0);
+        const finalStep = counterReducer(intermediateState, addSelection(dummyItem));
+
+        expect(finalStep.selection.length).toEqual(1);
+        expect(finalStep.selection[0]).toEqual({item: dummyItem, count: 1});
+    })
 });
