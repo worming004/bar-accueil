@@ -1,9 +1,12 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RootState, AppThunk} from '../../app/store';
 
+type Mode = 'Add' | 'Subtract'
+
 export interface CounterState {
     selection: Selection[],
     items: Item[],
+    mode: Mode
 }
 
 function setSelectionIfNotHere(cs: CounterState, item: Item) {
@@ -31,6 +34,7 @@ export interface Item {
 const initialState: CounterState = {
     selection: [],
     items: [],
+    mode: 'Add'
 };
 
 export const counterSlice = createSlice({
@@ -44,7 +48,7 @@ export const counterSlice = createSlice({
         addItemsByBatch: (state, action: PayloadAction<Item[]>) => {
             action.payload.forEach(it => state.items.push(it))
         },
-        addSelection: (state, action: PayloadAction<Item>) => {
+        executeSelection: (state, action: PayloadAction<Item>) => {
             setSelectionIfNotHere(state, action.payload);
             const selection = findByItem(action.payload)(state.selection)
             // @ts-ignore, previous step ensured it is set
@@ -57,7 +61,7 @@ export const counterSlice = createSlice({
 
 });
 
-export const {addItem, addItemsByBatch, addSelection} = counterSlice.actions;
+export const {addItem, addItemsByBatch, executeSelection} = counterSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
