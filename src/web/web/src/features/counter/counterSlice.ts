@@ -6,7 +6,8 @@ type Mode = 'Add' | 'Subtract'
 export interface CounterState {
     actions: Action[],
     items: Item[],
-    mode: Mode
+    mode: Mode,
+    presentation: Presentation
 }
 
 export interface Action {
@@ -16,18 +17,35 @@ export interface Action {
 
 export interface Item {
     name: string,
+    token: Token
 }
 
 export interface Token {
     name: string,
-    metadata: any,
-    price: number,
+    value: number
 }
 
-const initialState: CounterState = {
+export interface ItemWithCount extends Item {
+    count: number
+}
+
+export interface Presentation {
+    items: ItemWithCount[],
+    tokens: [],
+    amount: number,
+    mode: Mode
+}
+
+export const initialState: CounterState = {
     actions: [],
     items: [],
-    mode: 'Add'
+    mode: 'Add',
+    presentation: {
+        tokens: [],
+        mode: 'Add',
+        items: [],
+        amount: 0
+    }
 };
 
 export const counterSlice = createSlice({
@@ -37,18 +55,46 @@ export const counterSlice = createSlice({
     reducers: {
         addItem: (state, action: PayloadAction<Item>) => {
             state.items.push(action.payload);
+            SetPresentation(state);
         },
         addItemsByBatch: (state, action: PayloadAction<Item[]>) => {
             action.payload.forEach(it => state.items.push(it))
+            SetPresentation(state);
         },
         executeSelection: (state, action: PayloadAction<Item>) => {
             state.actions.push({item: action.payload, operation: state.mode})
+            SetPresentation(state);
         },
         setModeTo: (state, action: PayloadAction<Mode>) => {
             state.mode = action.payload;
+            SetPresentation(state);
         }
     },
 });
+
+function SetPresentation(state: CounterState) {
+    const amountFunc = (actions: Action[]) => actions.reduce((prev: number, next: Action) => prev + next.item.token.value, 0);
+    const itemsWithCount = (items: Item[], actions: Action[]): ItemWithCount[] => {
+        const result: ItemWithCount[] = items.map(it => ({...it, count: 0}));
+        actions.forEach(act => {
+            const relatedItem = result.find(it => it.name === act.item.name)
+            if (!relatedItem) return;
+
+            if (act.operation === 'Add'){
+                relatedItem.count++;
+            } else if (act.operation === 'Subtract') {
+                relatedItem.count--;
+            }
+        })
+        return  result;
+    }
+    state.presentation = {
+        amount: amountFunc(state.actions),
+        items: itemsWithCount(state.items, state.actions),
+        mode: state.mode,
+        tokens: []
+    };
+}
 
 export const {addItem, addItemsByBatch, executeSelection, setModeTo} = counterSlice.actions;
 

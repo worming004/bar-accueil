@@ -1,22 +1,26 @@
 import counterReducer, {
-    CounterState,
-    addItem, addItemsByBatch, executeSelection, setModeTo, Action,
+    addItem, addItemsByBatch, executeSelection, setModeTo, Action, Token, initialState,
 } from './counterSlice';
 
+const blueToken : Token = {
+    name: 'blue',
+    value: 1.10
+}
+const redToken : Token = {
+    name: 'red',
+    value: 1.80
+}
+
 const dummyItem = {
-    name: 'coca'
+    name: 'coca',
+    token: blueToken
 }
 const anotherDummyItem = {
-    name: 'beer'
+    name: 'beer',
+    token: redToken
 };
 
 describe('counter reducer', () => {
-    const initialState: CounterState = {
-        items: [],
-        actions: [],
-        mode: "Add"
-    };
-
     const selectionAddCoca: Action = {item: dummyItem, operation: 'Add'}
 
     it('should handle initial state', () => {
@@ -24,6 +28,12 @@ describe('counter reducer', () => {
             items: [],
             actions: [],
             mode: "Add",
+            presentation: {
+                tokens: [],
+                mode: 'Add',
+                items: [],
+                amount: 0
+            }
         });
     });
 
@@ -61,13 +71,20 @@ describe('counter reducer', () => {
         expect(initialStateWithSingleSelection).toEqual({
             items: [],
             actions: [selectionAddCoca, selectionAddCoca],
-            mode: "Add"
+            mode: "Add",
+            presentation: {
+                tokens: [],
+                mode: 'Add',
+                items: [],
+                amount: 0
+            }
         })
         const intermediateState = counterReducer(initialStateWithSingleSelection, setModeTo('Subtract'));
         expect(intermediateState.actions.length).toEqual(2);
         const finalStep = counterReducer(intermediateState, executeSelection(dummyItem));
         expect(finalStep.actions.length).toEqual(3);
         expect(finalStep.actions[0]).toEqual({item: dummyItem, operation: 'Add'});
+        expect(finalStep.actions[1]).toEqual({item: dummyItem, operation: 'Add'});
         expect(finalStep.actions[2]).toEqual({item: dummyItem, operation: 'Subtract'});
     })
 });
