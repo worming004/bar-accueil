@@ -53,7 +53,9 @@ export const counterSlice = createSlice({
             const selection = findByItem(action.payload)(state.selection)
             // @ts-ignore, previous step ensured it is set
             selection.count ++;
-
+        },
+        setModeTo: (state, action: PayloadAction<Mode>) => {
+            state.mode = action.payload;
         }
     },
     // The `extraReducers` field lets the slice handle actions defined elsewhere,
@@ -61,7 +63,7 @@ export const counterSlice = createSlice({
 
 });
 
-export const {addItem, addItemsByBatch, executeSelection} = counterSlice.actions;
+export const {addItem, addItemsByBatch, executeSelection, setModeTo} = counterSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of

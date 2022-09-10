@@ -1,6 +1,6 @@
 import counterReducer, {
     CounterState,
-    addItem, addItemsByBatch, executeSelection,
+    addItem, addItemsByBatch, executeSelection, setModeTo,
 } from './counterSlice';
 import exp from "constants";
 
@@ -46,5 +46,12 @@ describe('counter reducer', () => {
 
         expect(finalStep.selection.length).toEqual(1);
         expect(finalStep.selection[0]).toEqual({item: dummyItem, count: 1});
+    })
+
+    it('should should change mode', () => {
+        const state = counterReducer(initialState, setModeTo('Subtract'));
+        expect(state.mode).toEqual('Subtract')
+        const secondState = counterReducer(initialState, setModeTo('Add'));
+        expect(secondState.mode).toEqual('Add')
     })
 });
