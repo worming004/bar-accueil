@@ -1,38 +1,31 @@
-import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {RootState, AppThunk} from '../../app/store';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {RootState} from '../../app/store';
 
 type Mode = 'Add' | 'Subtract'
 
 export interface CounterState {
-    selection: Selection[],
+    actions: Action[],
     items: Item[],
     mode: Mode
 }
 
-function setSelectionIfNotHere(cs: CounterState, item: Item) {
-    if (!!findByItem(item)(cs.selection))
-        return;
-
-    cs.selection.push({item: item, count: 0})
-}
-
-function findByItem(item: Item) {
-    return (selections: Selection[]) => {
-        return selections.find(s => s.item.name === item.name);
-    }
-}
-
-export interface Selection {
+export interface Action {
     item: Item,
-    count: number
+    operation: Mode
 }
 
 export interface Item {
-    name: string
+    name: string,
+}
+
+export interface Token {
+    name: string,
+    metadata: any,
+    price: number,
 }
 
 const initialState: CounterState = {
-    selection: [],
+    actions: [],
     items: [],
     mode: 'Add'
 };
@@ -49,16 +42,7 @@ export const counterSlice = createSlice({
             action.payload.forEach(it => state.items.push(it))
         },
         executeSelection: (state, action: PayloadAction<Item>) => {
-            setSelectionIfNotHere(state, action.payload);
-            const selection = findByItem(action.payload)(state.selection)
-            // @ts-ignore, previous step ensured it is set
-            if (state.mode === 'Add')
-                // @ts-ignore, previous step ensured it is set
-                selection.count ++;
-            else
-                // @ts-ignore, previous step ensured it is set
-                selection.count --;
-
+            state.actions.push({item: action.payload, operation: state.mode})
         },
         setModeTo: (state, action: PayloadAction<Mode>) => {
             state.mode = action.payload;

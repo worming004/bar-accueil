@@ -1,8 +1,7 @@
 import counterReducer, {
     CounterState,
-    addItem, addItemsByBatch, executeSelection, setModeTo,
+    addItem, addItemsByBatch, executeSelection, setModeTo, Action,
 } from './counterSlice';
-import exp from "constants";
 
 const dummyItem = {
     name: 'coca'
@@ -14,14 +13,16 @@ const anotherDummyItem = {
 describe('counter reducer', () => {
     const initialState: CounterState = {
         items: [],
-        selection: [],
+        actions: [],
         mode: "Add"
     };
+
+    const selectionAddCoca: Action = {item: dummyItem, operation: 'Add'}
 
     it('should handle initial state', () => {
         expect(counterReducer(undefined, {type: 'unknown'})).toEqual({
             items: [],
-            selection: [],
+            actions: [],
             mode: "Add",
         });
     });
@@ -41,11 +42,11 @@ describe('counter reducer', () => {
 
     it('should increase counter by item', () => {
         const intermediateState = counterReducer(initialState, addItem(dummyItem));
-        expect(intermediateState.selection.length).toEqual(0);
+        expect(intermediateState.actions.length).toEqual(0);
         const finalStep = counterReducer(intermediateState, executeSelection(dummyItem));
 
-        expect(finalStep.selection.length).toEqual(1);
-        expect(finalStep.selection[0]).toEqual({item: dummyItem, count: 1});
+        expect(finalStep.actions.length).toEqual(1);
+        expect(finalStep.actions[0]).toEqual({item: dummyItem, operation: 'Add'});
     })
 
     it('should should change mode', () => {
@@ -55,18 +56,18 @@ describe('counter reducer', () => {
         expect(secondState.mode).toEqual('Add')
     })
 
-    it('should decreate counter by item', () => {
-        const initialStateWithSingleSelection = {...initialState, selection: [{item: dummyItem, count: 2}]}
+    it('should decrease counter by item', () => {
+        const initialStateWithSingleSelection = {...initialState, actions: [selectionAddCoca, selectionAddCoca]}
         expect(initialStateWithSingleSelection).toEqual({
             items: [],
-            selection: [{item: dummyItem, count: 2}],
+            actions: [selectionAddCoca, selectionAddCoca],
             mode: "Add"
         })
         const intermediateState = counterReducer(initialStateWithSingleSelection, setModeTo('Subtract'));
-        expect(intermediateState.selection.length).toEqual(1);
-        expect(intermediateState.selection[0]).toEqual({item: dummyItem, count: 2});
+        expect(intermediateState.actions.length).toEqual(2);
         const finalStep = counterReducer(intermediateState, executeSelection(dummyItem));
-        expect(finalStep.selection.length).toEqual(1);
-        expect(finalStep.selection[0]).toEqual({item: dummyItem, count: 1});
+        expect(finalStep.actions.length).toEqual(3);
+        expect(finalStep.actions[0]).toEqual({item: dummyItem, operation: 'Add'});
+        expect(finalStep.actions[2]).toEqual({item: dummyItem, operation: 'Subtract'});
     })
 });
