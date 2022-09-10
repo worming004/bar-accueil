@@ -54,4 +54,19 @@ describe('counter reducer', () => {
         const secondState = counterReducer(initialState, setModeTo('Add'));
         expect(secondState.mode).toEqual('Add')
     })
+
+    it('should decreate counter by item', () => {
+        const initialStateWithSingleSelection = {...initialState, selection: [{item: dummyItem, count: 2}]}
+        expect(initialStateWithSingleSelection).toEqual({
+            items: [],
+            selection: [{item: dummyItem, count: 2}],
+            mode: "Add"
+        })
+        const intermediateState = counterReducer(initialStateWithSingleSelection, setModeTo('Subtract'));
+        expect(intermediateState.selection.length).toEqual(1);
+        expect(intermediateState.selection[0]).toEqual({item: dummyItem, count: 2});
+        const finalStep = counterReducer(intermediateState, executeSelection(dummyItem));
+        expect(finalStep.selection.length).toEqual(1);
+        expect(finalStep.selection[0]).toEqual({item: dummyItem, count: 1});
+    })
 });
