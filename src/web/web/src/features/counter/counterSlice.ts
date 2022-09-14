@@ -1,5 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from '../../app/store';
+import {data, getItems, getTokens} from "./fillStoreFromJson";
 
 type Mode = 'Add' | 'Subtract'
 
@@ -31,7 +32,7 @@ export interface ItemWithCount extends Item {
 
 export interface Presentation {
     items: ItemWithCount[],
-    tokens: [],
+    tokens: Token[],
     amount: number,
     mode: Mode
 }
@@ -70,6 +71,12 @@ export const counterSlice = createSlice({
             SetPresentation(state);
         }
     },
+    extraReducers: builder => {
+        builder.addCase(data.fulfilled, (state, action) => {
+            state.items = getItems(action.payload);
+            state.presentation.tokens = getTokens(action.payload)
+        })
+    }
 });
 
 function SetPresentation(state: CounterState) {
@@ -102,6 +109,7 @@ export const {addItem, addItemsByBatch, executeSelection, setModeTo} = counterSl
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 export const selectItems = (state: RootState) => state.counter.items;
+export const selectPresentation = (state: RootState) => state.counter.presentation;
 
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.
