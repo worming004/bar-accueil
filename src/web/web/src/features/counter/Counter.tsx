@@ -6,6 +6,7 @@ import {
 } from './counterSlice';
 import styles from './Counter.module.css';
 import {InputPage} from "./inputs/InputPage";
+import {OutputPage} from "./outputs/OutputPage";
 
 export function Counter() {
     const items = useAppSelector(selectPresentationItems);
@@ -14,6 +15,7 @@ export function Counter() {
     return (
         <div>
             <InputPage></InputPage>
+            <OutputPage></OutputPage>
             <div className={styles.row}>
                 {JSON.stringify(items)}
                 <br/>

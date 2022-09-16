@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from '../../app/store';
-import {data, getItems, getTokens} from "./fillStoreFromJson";
+import {data, getItems, getTokenByName, getTokens} from "./fillStoreFromJson";
 
 type Mode = 'Add' | 'Subtract'
 
@@ -26,13 +26,17 @@ export interface Token {
     value: number
 }
 
+export interface TokenWithCount extends Token{
+    count: number
+}
+
 export interface ItemWithCount extends Item {
     count: number
 }
 
 export interface Presentation {
     items: ItemWithCount[],
-    tokens: Token[],
+    tokens: TokenWithCount[],
     amount: number,
     mode: Mode
 }
@@ -74,7 +78,7 @@ export const counterSlice = createSlice({
     extraReducers: builder => {
         builder.addCase(data.fulfilled, (state, action) => {
             state.items = getItems(action.payload);
-            state.presentation.tokens = getTokens(action.payload)
+            state.presentation.tokens = getTokens(action.payload).map(t => ({...t, count: 0}))
             SetPresentation(state)
         })
     }
@@ -96,11 +100,29 @@ function SetPresentation(state: CounterState) {
         })
         return result;
     }
+    const tokensWithCount = (tokens: TokenWithCount[], actions: Action[]): TokenWithCount[] => {
+        tokens.forEach(t => t.count = 0);
+        actions.forEach(a => {
+            const token = getTokenByName(tokens, a.item.token.name) as TokenWithCount;
+            if (!token) {
+                console.log('token not found');
+                return;
+            }
+            if (a.operation === "Add")
+                token.count++;
+            else if (a.operation === "Subtract")
+                token.count--;
+            else {
+                console.log('operation not found')
+            }
+        })
+        return tokens;
+    }
     state.presentation = {
         amount: amountFunc(state.actions),
         items: itemsWithCount(state.items, state.actions),
         mode: state.mode,
-        tokens: []
+        tokens: tokensWithCount(state.presentation.tokens, state.actions)
     };
 }
 
@@ -110,6 +132,7 @@ export const {addItem, addItemsByBatch, executeSelection, setModeTo} = counterSl
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 export const selectPresentationItems = (state: RootState) => state.counter.presentation.items;
+export const selectPresentationTokens = (state: RootState) => state.counter.presentation.tokens;
 export const selectPresentation = (state: RootState) => state.counter.presentation;
 
 // We can also write thunks by hand, which may contain both sync and async logic.
