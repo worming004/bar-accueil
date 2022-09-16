@@ -1,19 +1,39 @@
 {
   "items": [
     {
-      "name": "Wapils",
+      "name": "Wapils grisette",
       "tokenName": "orange"
     },
     {
-      "name": "Repas adulte",
-      "tokenName": "adult card"
+      "name": "blanche mystic moinette",
+      "tokenName": "grey"
     },
     {
-      "name": "Eau Grenadine Café",
+      "name": "rasta mousse",
+      "tokenName": "grey"
+    },
+    {
+      "name": "coca fanta jus",
       "tokenName": "orange"
     },
     {
-      "name": "Repas enfant",
+      "name": "eau grenadine café",
+      "tokenName": "green"
+    },
+    {
+      "name": "vin au verre",
+      "tokenName": "orange"
+    },
+    {
+      "name": "tarte gaufre glace dessert",
+      "tokenName": "grey"
+    },
+    {
+      "name": "repas adulte",
+      "tokenName": "orange"
+    },
+    {
+      "name": "repas enfant",
       "tokenName": "kid card"
     }
   ],
@@ -23,7 +43,7 @@
       "value": 1.8
     },
     {
-      "name": "gray",
+      "name": "grey",
       "value": 2
     },
     {

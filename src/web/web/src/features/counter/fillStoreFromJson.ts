@@ -32,15 +32,3 @@ export function getTokens(fileContent: { tokens: Token[] }): Token[] {
     return fileContent.tokens;
 }
 
-//
-// export const itemsApi = createApi({
-//     reducerPath: 'itemsApi',
-//     baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:3000'}),
-//     endpoints: (builder) => ({
-//         getItems: builder.query<itemsFilesType, {}>({
-//             query: () => 'items.json',
-//         })
-//     })
-// });
-//
-// export const { useGetItemsQuery } = itemsApi as any

@@ -9,7 +9,7 @@ export function InputPage() {
     }
     return (
         <div
-            className="flex flex-row"
+            className="flex flex-wrap"
             style={style}
         >
             {inputsHtml}

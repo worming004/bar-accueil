@@ -9,7 +9,8 @@ export interface CounterState {
     items: Item[],
     tokens: Token[],
     mode: Mode,
-    presentation: Presentation
+    presentation: Presentation,
+    status?: string
 }
 
 export interface Action {
@@ -84,6 +85,12 @@ export const counterSlice = createSlice({
             state.tokens = tokens;
             state.presentation.tokens = tokens.map(t => ({...t, count: 0}))
             SetPresentation(state)
+        })
+        builder.addCase(data.rejected, (state, action) => {
+            state.status = "ERROR"
+        })
+        builder.addCase(data.pending, (state, action) => {
+            state.status = "PENDING"
         })
     }
 });
