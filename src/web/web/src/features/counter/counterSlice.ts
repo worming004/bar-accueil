@@ -159,6 +159,7 @@ export const {addItem, addItemsByBatch, executeSelection, setModeTo} = counterSl
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 export const selectPresentationItems = (state: RootState) => state.counter.presentation.items;
 export const selectPresentationTokens = (state: RootState) => state.counter.presentation.tokens;
+export const selectPresentationAmount = (state: RootState) => state.counter.presentation.amount;
 export const selectPresentation = (state: RootState) => state.counter.presentation;
 
 // We can also write thunks by hand, which may contain both sync and async logic.
