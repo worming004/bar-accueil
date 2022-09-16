@@ -11,7 +11,7 @@ const redToken: Token = {
     value: 1.80
 }
 
-const dummyItem = {
+const cocaItem = {
     name: 'coca',
     token: blueToken
 }
@@ -21,13 +21,14 @@ const anotherDummyItem = {
 };
 
 describe('counter reducer', () => {
-    const selectionAddCoca: Action = {item: dummyItem, operation: 'Add'}
+    const selectionAddCoca: Action = {item: cocaItem, operation: 'Add'}
 
     it('should handle initial state', () => {
         expect(counterReducer(undefined, {type: 'unknown'})).toEqual({
             items: [],
             actions: [],
             mode: "Add",
+            tokens: [],
             presentation: {
                 tokens: [],
                 mode: 'Add',
@@ -38,25 +39,28 @@ describe('counter reducer', () => {
     });
 
     it('should handle adding item', () => {
-        const actual = counterReducer(initialState, addItem(dummyItem));
+        const actual = counterReducer(initialState, addItem(cocaItem));
         expect(actual.items.length).toEqual(1);
-        expect(actual.items[0]).toEqual(dummyItem);
+        expect(actual.items[0]).toEqual(cocaItem);
     });
 
     it('should handle adding item by batch', () => {
-        const actual = counterReducer(initialState, addItemsByBatch([dummyItem, anotherDummyItem]));
+        const actual = counterReducer(initialState, addItemsByBatch([cocaItem, anotherDummyItem]));
         expect(actual.items.length).toEqual(2);
-        expect(actual.items[0]).toEqual(dummyItem);
+        expect(actual.items[0]).toEqual(cocaItem);
         expect(actual.items[1]).toEqual(anotherDummyItem);
     });
 
     it('should increase counter by item', () => {
-        const intermediateState = counterReducer(initialState, addItem(dummyItem));
+        const intermediateState = counterReducer({...initialState, tokens: [cocaItem.token]}, addItem(cocaItem));
         expect(intermediateState.actions.length).toEqual(0);
-        const finalStep = counterReducer(intermediateState, executeSelection(dummyItem));
+        expect(intermediateState.presentation.amount).toEqual(0)
+
+        const finalStep = counterReducer(intermediateState, executeSelection(cocaItem));
 
         expect(finalStep.actions.length).toEqual(1);
-        expect(finalStep.actions[0]).toEqual({item: dummyItem, operation: 'Add'});
+        expect(finalStep.actions[0]).toEqual({item: cocaItem, operation: 'Add'});
+        expect(finalStep.presentation.amount).toEqual(cocaItem.token.value)
     })
 
     it('should should change mode', () => {
@@ -67,11 +71,16 @@ describe('counter reducer', () => {
     })
 
     it('should decrease counter by item', () => {
-        const initialStateWithSingleSelection = {...initialState, actions: [selectionAddCoca, selectionAddCoca]}
+        const initialStateWithSingleSelection = {
+            ...initialState,
+            actions: [selectionAddCoca, selectionAddCoca],
+            tokens: [cocaItem.token]
+        }
         expect(initialStateWithSingleSelection).toEqual({
             items: [],
             actions: [selectionAddCoca, selectionAddCoca],
             mode: "Add",
+            tokens: [cocaItem.token],
             presentation: {
                 tokens: [],
                 mode: 'Add',
@@ -81,10 +90,15 @@ describe('counter reducer', () => {
         })
         const intermediateState = counterReducer(initialStateWithSingleSelection, setModeTo('Subtract'));
         expect(intermediateState.actions.length).toEqual(2);
-        const finalStep = counterReducer(intermediateState, executeSelection(dummyItem));
+        expect(intermediateState.presentation.tokens.find(t => t.name === cocaItem.token.name)?.count).toEqual(2)
+        expect(intermediateState.presentation.amount).toEqual(cocaItem.token.value*2)
+        const finalStep = counterReducer(intermediateState, executeSelection(cocaItem));
         expect(finalStep.actions.length).toEqual(3);
-        expect(finalStep.actions[0]).toEqual({item: dummyItem, operation: 'Add'});
-        expect(finalStep.actions[1]).toEqual({item: dummyItem, operation: 'Add'});
-        expect(finalStep.actions[2]).toEqual({item: dummyItem, operation: 'Subtract'});
+        expect(finalStep.actions[0]).toEqual({item: cocaItem, operation: 'Add'});
+        expect(finalStep.actions[1]).toEqual({item: cocaItem, operation: 'Add'});
+        expect(finalStep.actions[2]).toEqual({item: cocaItem, operation: 'Subtract'});
+
+        expect(finalStep.presentation.tokens.find(t => t.name === cocaItem.token.name)?.count).toEqual(1)
+        expect(finalStep.presentation.amount).toEqual(cocaItem.token.value)
     })
 });

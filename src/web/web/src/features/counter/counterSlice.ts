@@ -7,6 +7,7 @@ type Mode = 'Add' | 'Subtract'
 export interface CounterState {
     actions: Action[],
     items: Item[],
+    tokens: Token[],
     mode: Mode,
     presentation: Presentation
 }
@@ -26,7 +27,7 @@ export interface Token {
     value: number
 }
 
-export interface TokenWithCount extends Token{
+export interface TokenWithCount extends Token {
     count: number
 }
 
@@ -44,6 +45,7 @@ export interface Presentation {
 export const initialState: CounterState = {
     actions: [],
     items: [],
+    tokens: [],
     mode: 'Add',
     presentation: {
         tokens: [],
@@ -78,14 +80,25 @@ export const counterSlice = createSlice({
     extraReducers: builder => {
         builder.addCase(data.fulfilled, (state, action) => {
             state.items = getItems(action.payload);
-            state.presentation.tokens = getTokens(action.payload).map(t => ({...t, count: 0}))
+            const tokens = getTokens(action.payload)
+            state.tokens = tokens;
+            state.presentation.tokens = tokens.map(t => ({...t, count: 0}))
             SetPresentation(state)
         })
     }
 });
 
 function SetPresentation(state: CounterState) {
-    const amountFunc = (actions: Action[]) => actions.reduce((prev: number, next: Action) => prev + next.item.token.value, 0);
+    const amountFunc = (actions: Action[]) => actions.reduce((prev: number, next: Action) => {
+        switch (next.operation) {
+            case "Add":
+                return prev + next.item.token.value;
+            case "Subtract":
+                return prev - next.item.token.value;
+        }
+        return prev;
+    }, 0);
+
     const itemsWithCount = (items: Item[], actions: Action[]): ItemWithCount[] => {
         const result: ItemWithCount[] = items.map(it => ({...it, count: 0}));
         actions.forEach(act => {
@@ -100,10 +113,11 @@ function SetPresentation(state: CounterState) {
         })
         return result;
     }
-    const tokensWithCount = (tokens: TokenWithCount[], actions: Action[]): TokenWithCount[] => {
-        tokens.forEach(t => t.count = 0);
+
+    const tokensWithCount = (tokens: Token[], actions: Action[]): TokenWithCount[] => {
+        const tokensWithCount = tokens.map(t => ({...t, count: 0}))
         actions.forEach(a => {
-            const token = getTokenByName(tokens, a.item.token.name);
+            const token = getTokenByName(tokensWithCount, a.item.token.name);
             if (!token) {
                 console.log('token not found');
                 return;
@@ -116,13 +130,14 @@ function SetPresentation(state: CounterState) {
                 console.log('operation not found')
             }
         })
-        return tokens;
+        return tokensWithCount;
     }
+
     state.presentation = {
         amount: amountFunc(state.actions),
         items: itemsWithCount(state.items, state.actions),
         mode: state.mode,
-        tokens: tokensWithCount(state.presentation.tokens, state.actions)
+        tokens: tokensWithCount(state.tokens, state.actions)
     };
 }
 
