@@ -19,7 +19,8 @@ export function InputPage() {
 function SingleButton(props: Item) {
     const dispatchItem = () => store.dispatch(executeSelection(props))
     const cardStyle = {
-        backgroundColor: "#f1f1f1",
+        // TODO: select color with specified property
+        backgroundColor: props.tokens[0]?.name ?? "#f1f1f1",
         width: "200px",
         height: "250px",
         margin: "25px",
