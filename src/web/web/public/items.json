@@ -78,22 +78,27 @@
   "tokens": [
     {
       "name": "orange",
+      "displayColor": "orange",
       "value": 1.8
     },
     {
       "name": "grey",
+      "displayColor": "grey",
       "value": 2
     },
     {
       "name": "green",
+      "displayColor": "green",
       "value": 1.5
     },
     {
       "name": "adult card",
+      "displayColor": "#2222f4",
       "value": 14
     },
     {
       "name": "kid card",
+      "displayColor": "#f42222",
       "value": 10
     }
   ]

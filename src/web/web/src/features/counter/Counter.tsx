@@ -12,10 +12,20 @@ export function Counter() {
     const items = useAppSelector(selectPresentationItems);
     const presentation = useAppSelector(selectPresentation)
 
+    const inputStyle = {maxWidth: "70%"}
+    const outputStyle = {maxWidth: "30%"}
+
     return (
-        <div>
-            <InputPage></InputPage>
-            <OutputPage></OutputPage>
+        <div className="flex flex-wrap">
+            <div style={inputStyle}>
+                <InputPage></InputPage>
+            </div>
+            <div style={outputStyle}>
+                <OutputPage></OutputPage>
+            </div>
+
+            <br/>
+            <br/>
             <div className={styles.row}>
                 {JSON.stringify(items)}
                 <br/>

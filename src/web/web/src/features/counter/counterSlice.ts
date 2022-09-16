@@ -27,7 +27,7 @@ export interface Item {
 export interface Token {
     name: string,
     value: number,
-    color: string
+    displayColor: string
 }
 
 export interface TokenWithCount extends Token {

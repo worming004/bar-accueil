@@ -5,12 +5,12 @@ import counterReducer, {
 const blueToken: Token = {
     name: 'blue',
     value: 1.10,
-    color: 'blue'
+    displayColor: 'blue'
 }
 const redToken: Token = {
     name: 'red',
     value: 1.80,
-    color: 'red'
+    displayColor: 'red'
 }
 
 const cocaItem = {
