@@ -1,6 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from '../../app/store';
 import {data, getItems, getTokenByName, getTokens} from "./fillStoreFromJson";
+import {aggregateValues} from "../tokens";
 
 type Mode = 'Add' | 'Subtract'
 
@@ -100,9 +101,9 @@ function SetPresentation(state: CounterState) {
     const amountFunc = (actions: Action[]) => actions.reduce((prev: number, next: Action) => {
         switch (next.operation) {
             case "Add":
-                return prev + next.item.tokens.reduce((p, t)=> p+t.value, 0);
+                return prev + aggregateValues(next.item.tokens);
             case "Subtract":
-                return prev - next.item.tokens.reduce((p, t)=> p+t.value, 0);
+                return prev - aggregateValues(next.item.tokens);
         }
         return prev;
     }, 0);

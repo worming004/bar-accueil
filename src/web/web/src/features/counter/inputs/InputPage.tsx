@@ -1,6 +1,7 @@
 import {executeSelection, Item, selectPresentationItems} from "../counterSlice";
 import {useAppSelector} from "../../../app/hooks";
 import {store} from "../../../app/store";
+import {GetColor} from "../../items";
 
 export function InputPage() {
     const inputs = useAppSelector(selectPresentationItems)
@@ -20,7 +21,7 @@ function SingleButton(props: Item) {
     const dispatchItem = () => store.dispatch(executeSelection(props))
     const cardStyle = {
         // TODO: select color with specified property
-        backgroundColor: props.tokens[0]?.name ?? "#f1f1f1",
+        backgroundColor: GetColor(props),
         width: "200px",
         height: "250px",
         margin: "25px",
