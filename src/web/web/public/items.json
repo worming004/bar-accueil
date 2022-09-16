@@ -1,13 +1,21 @@
 {
   "items": [
     {
-      "name": "beer",
-      "tokenName": "yellow"
+      "name": "Wapils",
+      "tokenName": "orange"
+    },
+    {
+      "name": "Repas",
+      "tokenName": "card"
+    },
+    {
+      "name": "Eau Grenadine Café",
+      "tokenName": "orange"
     }
   ],
   "tokens": [
     {
-      "name": "yellow",
+      "name": "orange",
       "value": 1.8
     },
     {
@@ -17,6 +25,14 @@
     {
       "name": "green",
       "value": 1.5
+    },
+    {
+      "name": "adult card",
+      "value": 14
+    },
+    {
+      "name": "kid card",
+      "value": 10
     }
   ]
 }
