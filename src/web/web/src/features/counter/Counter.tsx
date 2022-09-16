@@ -17,7 +17,7 @@ export function Counter() {
 
     return (
         <div className="flex flex-wrap">
-            <div style={inputStyle}>
+            <div style={inputStyle} className="border-r-8 border-yellow-700">
                 <InputPage></InputPage>
             </div>
             <div style={outputStyle}>
