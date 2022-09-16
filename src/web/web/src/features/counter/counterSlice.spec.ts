@@ -1,5 +1,5 @@
 import counterReducer, {
-    addItem, addItemsByBatch, executeSelection, setModeTo, Action, Token, initialState,
+    addItem, addItemsByBatch, executeSelection, setModeTo, Action, Token, initialState, undo, reset,
 } from './counterSlice';
 
 const blueToken: Token = {
@@ -22,8 +22,15 @@ const anotherDummyItem = {
     tokens: [redToken]
 };
 
+const selectionAddCoca: Action = {item: cocaItem, operation: 'Add'}
+
+const initialStateWithSingleSelection = {
+    ...initialState,
+    actions: [selectionAddCoca, selectionAddCoca],
+    tokens: [...cocaItem.tokens]
+}
+
 describe('counter reducer', () => {
-    const selectionAddCoca: Action = {item: cocaItem, operation: 'Add'}
 
     it('should handle initial state', () => {
         expect(counterReducer(undefined, {type: 'unknown'})).toEqual({
@@ -73,11 +80,7 @@ describe('counter reducer', () => {
     })
 
     it('should decrease counter by item', () => {
-        const initialStateWithSingleSelection = {
-            ...initialState,
-            actions: [selectionAddCoca, selectionAddCoca],
-            tokens: [...cocaItem.tokens]
-        }
+
         expect(initialStateWithSingleSelection).toEqual({
             items: [],
             actions: [selectionAddCoca, selectionAddCoca],
@@ -102,5 +105,17 @@ describe('counter reducer', () => {
 
         expect(finalStep.presentation.tokens.find(t => t.name === cocaItem.tokens[0].name)?.count).toEqual(1)
         expect(finalStep.presentation.amount).toEqual(cocaItem.tokens[0].value)
+    })
+
+    it('should undo latest action', () => {
+        expect(initialStateWithSingleSelection.actions).toHaveLength(2)
+        const state = counterReducer(initialStateWithSingleSelection, undo());
+        expect(state.actions).toHaveLength(1)
+    })
+
+    it('should reset all actions', () => {
+        expect(initialStateWithSingleSelection.actions).toHaveLength(2)
+        const state = counterReducer(initialStateWithSingleSelection, reset());
+        expect(state.actions).toHaveLength(0)
     })
 });

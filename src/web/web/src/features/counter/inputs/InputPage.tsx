@@ -1,9 +1,12 @@
-import {executeSelection, Item, selectPresentationItems} from "../counterSlice";
+import {executeSelection, Item, selectPresentationItems, switchModeTo, undo, reset} from "../counterSlice";
 import {useAppSelector} from "../../../app/hooks";
 import {store} from "../../../app/store";
 import {GetColor} from "../../items";
 
 function Control() {
+    const undoClick = () => store.dispatch(undo())
+    const resetClick = () => store.dispatch(reset())
+    const switchModeToClick = () => store.dispatch(switchModeTo())
     const resetStyle = {
         fontSize: "35px",
     }
@@ -11,9 +14,9 @@ function Control() {
     // TODO bind to feature
     return (
         <>
-            <button style={resetStyle} className={controlClasses}>Reset</button>
-            <button style={resetStyle} className={controlClasses}>Undo</button>
-            <button style={resetStyle} className={controlClasses}>Switch Mode</button>
+            <button style={resetStyle} className={controlClasses} onClick={() => resetClick()}>Reset</button>
+            <button style={resetStyle} className={controlClasses} onClick={() => undoClick()}>Undo</button>
+            <button style={resetStyle} className={controlClasses} onClick={() => switchModeToClick()}>Switch Mode</button>
         </>);
 }
 

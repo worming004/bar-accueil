@@ -2,6 +2,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from '../../app/store';
 import {data, getItems, getTokenByName, getTokens} from "./fillStoreFromJson";
 import {aggregateValues} from "../tokens";
+import {stat} from "fs";
 
 type Mode = 'Add' | 'Subtract'
 
@@ -45,14 +46,16 @@ export interface Presentation {
     mode: Mode
 }
 
+const defaultMode : Mode = 'Add'
+
 export const initialState: CounterState = {
     actions: [],
     items: [],
     tokens: [],
-    mode: 'Add',
+    mode: defaultMode,
     presentation: {
         tokens: [],
-        mode: 'Add',
+        mode: defaultMode,
         items: [],
         amount: 0
     }
@@ -77,6 +80,26 @@ export const counterSlice = createSlice({
         },
         setModeTo: (state, action: PayloadAction<Mode>) => {
             state.mode = action.payload;
+            SetPresentation(state);
+        },
+        switchModeTo: (state, action: PayloadAction) => {
+            switch (state.mode) {
+                case 'Add':
+                    state.mode = 'Subtract'
+                    break;
+                case 'Subtract':
+                    state.mode = 'Add'
+                    break;
+            }
+            SetPresentation(state);
+        },
+        undo: (state, action: PayloadAction) => {
+            state.actions.pop();
+            SetPresentation(state);
+        },
+        reset: (state, action: PayloadAction) => {
+            state.actions = [];
+            state.mode = defaultMode
             SetPresentation(state);
         }
     },
@@ -126,8 +149,7 @@ function SetPresentation(state: CounterState) {
     const tokensWithCount = (tokens: Token[], actions: Action[]): TokenWithCount[] => {
         const tokensWithCount = tokens.map(t => ({...t, count: 0}))
         actions.forEach(a => {
-            a.item.tokens.forEach(t =>
-            {
+            a.item.tokens.forEach(t => {
                 const token = getTokenByName(tokensWithCount, t.name);
                 if (!token) {
                     console.log('token not found');
@@ -153,7 +175,7 @@ function SetPresentation(state: CounterState) {
     };
 }
 
-export const {addItem, addItemsByBatch, executeSelection, setModeTo} = counterSlice.actions;
+export const {addItem, addItemsByBatch, executeSelection, setModeTo, switchModeTo, reset, undo} = counterSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
