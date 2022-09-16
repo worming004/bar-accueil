@@ -2,39 +2,77 @@
   "items": [
     {
       "name": "Wapils grisette",
-      "tokenName": "orange"
+      "tokenNames": [
+        "orange"
+      ]
     },
     {
       "name": "blanche mystic moinette",
-      "tokenName": "grey"
+      "tokenNames": [
+        "grey"
+      ]
     },
     {
       "name": "rasta mousse",
-      "tokenName": "grey"
+      "tokenNames": [
+        "grey"
+      ]
+    },
+    {
+      "name": "biere bouteille",
+      "tokenNames": [
+        "grey",
+        "grey",
+        "grey"
+      ]
     },
     {
       "name": "coca fanta jus",
-      "tokenName": "orange"
+      "tokenNames": [
+        "orange"
+      ]
     },
     {
       "name": "eau grenadine café",
-      "tokenName": "green"
+      "tokenNames": [
+        "green"
+      ]
     },
     {
       "name": "vin au verre",
-      "tokenName": "orange"
+      "tokenNames": [
+        "orange"
+      ]
+    },
+    {
+      "name": "vin bouteille",
+      "tokenNames": [
+        "orange",
+        "orange",
+        "orange",
+        "orange",
+        "orange",
+        "orange"
+      ]
     },
     {
       "name": "tarte gaufre glace dessert",
-      "tokenName": "grey"
+      "tokenNames": ["grey"]
     },
     {
       "name": "repas adulte",
-      "tokenName": "orange"
+      "tokenNames": ["adult card"]
     },
     {
       "name": "repas enfant",
-      "tokenName": "kid card"
+      "tokenNames": ["kid card"]
+    },
+    {
+      "name": "pain saucisse",
+      "tokenNames": [
+        "green",
+        "green"
+      ]
     }
   ],
   "tokens": [

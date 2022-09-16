@@ -20,12 +20,13 @@ export interface Action {
 
 export interface Item {
     name: string,
-    token: Token
+    tokens: Token[]
 }
 
 export interface Token {
     name: string,
-    value: number
+    value: number,
+    color: string
 }
 
 export interface TokenWithCount extends Token {
@@ -99,9 +100,9 @@ function SetPresentation(state: CounterState) {
     const amountFunc = (actions: Action[]) => actions.reduce((prev: number, next: Action) => {
         switch (next.operation) {
             case "Add":
-                return prev + next.item.token.value;
+                return prev + next.item.tokens.reduce((p, t)=> p+t.value, 0);
             case "Subtract":
-                return prev - next.item.token.value;
+                return prev - next.item.tokens.reduce((p, t)=> p+t.value, 0);
         }
         return prev;
     }, 0);
@@ -124,18 +125,21 @@ function SetPresentation(state: CounterState) {
     const tokensWithCount = (tokens: Token[], actions: Action[]): TokenWithCount[] => {
         const tokensWithCount = tokens.map(t => ({...t, count: 0}))
         actions.forEach(a => {
-            const token = getTokenByName(tokensWithCount, a.item.token.name);
-            if (!token) {
-                console.log('token not found');
-                return;
-            }
-            if (a.operation === "Add")
-                token.count++;
-            else if (a.operation === "Subtract")
-                token.count--;
-            else {
-                console.log('operation not found')
-            }
+            a.item.tokens.forEach(t =>
+            {
+                const token = getTokenByName(tokensWithCount, t.name);
+                if (!token) {
+                    console.log('token not found');
+                    return;
+                }
+                if (a.operation === "Add")
+                    token.count++;
+                else if (a.operation === "Subtract")
+                    token.count--;
+                else {
+                    console.log('operation not found')
+                }
+            });
         })
         return tokensWithCount;
     }

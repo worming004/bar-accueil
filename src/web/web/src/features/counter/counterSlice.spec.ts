@@ -4,20 +4,22 @@ import counterReducer, {
 
 const blueToken: Token = {
     name: 'blue',
-    value: 1.10
+    value: 1.10,
+    color: 'blue'
 }
 const redToken: Token = {
     name: 'red',
-    value: 1.80
+    value: 1.80,
+    color: 'red'
 }
 
 const cocaItem = {
     name: 'coca',
-    token: blueToken
+    tokens: [blueToken]
 }
 const anotherDummyItem = {
     name: 'beer',
-    token: redToken
+    tokens: [redToken]
 };
 
 describe('counter reducer', () => {
@@ -52,7 +54,7 @@ describe('counter reducer', () => {
     });
 
     it('should increase counter by item', () => {
-        const intermediateState = counterReducer({...initialState, tokens: [cocaItem.token]}, addItem(cocaItem));
+        const intermediateState = counterReducer({...initialState, tokens: cocaItem.tokens}, addItem(cocaItem));
         expect(intermediateState.actions.length).toEqual(0);
         expect(intermediateState.presentation.amount).toEqual(0)
 
@@ -60,7 +62,7 @@ describe('counter reducer', () => {
 
         expect(finalStep.actions.length).toEqual(1);
         expect(finalStep.actions[0]).toEqual({item: cocaItem, operation: 'Add'});
-        expect(finalStep.presentation.amount).toEqual(cocaItem.token.value)
+        expect(finalStep.presentation.amount).toEqual(cocaItem.tokens[0].value)
     })
 
     it('should should change mode', () => {
@@ -74,13 +76,13 @@ describe('counter reducer', () => {
         const initialStateWithSingleSelection = {
             ...initialState,
             actions: [selectionAddCoca, selectionAddCoca],
-            tokens: [cocaItem.token]
+            tokens: [...cocaItem.tokens]
         }
         expect(initialStateWithSingleSelection).toEqual({
             items: [],
             actions: [selectionAddCoca, selectionAddCoca],
             mode: "Add",
-            tokens: [cocaItem.token],
+            tokens: [...cocaItem.tokens],
             presentation: {
                 tokens: [],
                 mode: 'Add',
@@ -90,15 +92,15 @@ describe('counter reducer', () => {
         })
         const intermediateState = counterReducer(initialStateWithSingleSelection, setModeTo('Subtract'));
         expect(intermediateState.actions.length).toEqual(2);
-        expect(intermediateState.presentation.tokens.find(t => t.name === cocaItem.token.name)?.count).toEqual(2)
-        expect(intermediateState.presentation.amount).toEqual(cocaItem.token.value*2)
+        expect(intermediateState.presentation.tokens.find(t => t.name === cocaItem.tokens[0].name)?.count).toEqual(2)
+        expect(intermediateState.presentation.amount).toEqual(cocaItem.tokens[0].value*2)
         const finalStep = counterReducer(intermediateState, executeSelection(cocaItem));
         expect(finalStep.actions.length).toEqual(3);
         expect(finalStep.actions[0]).toEqual({item: cocaItem, operation: 'Add'});
         expect(finalStep.actions[1]).toEqual({item: cocaItem, operation: 'Add'});
         expect(finalStep.actions[2]).toEqual({item: cocaItem, operation: 'Subtract'});
 
-        expect(finalStep.presentation.tokens.find(t => t.name === cocaItem.token.name)?.count).toEqual(1)
-        expect(finalStep.presentation.amount).toEqual(cocaItem.token.value)
+        expect(finalStep.presentation.tokens.find(t => t.name === cocaItem.tokens[0].name)?.count).toEqual(1)
+        expect(finalStep.presentation.amount).toEqual(cocaItem.tokens[0].value)
     })
 });
