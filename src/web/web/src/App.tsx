@@ -9,7 +9,6 @@ import {data} from "./features/counter/fillStoreFromJson";
 
 function App() {
     store.dispatch(data())
-    store.dispatch(addItem({name: "test", token: {name: 'token', value:3}}))
 
   return (
     <div className="App">
