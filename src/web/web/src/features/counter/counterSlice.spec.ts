@@ -2,11 +2,11 @@ import counterReducer, {
     addItem, addItemsByBatch, executeSelection, setModeTo, Action, Token, initialState,
 } from './counterSlice';
 
-const blueToken : Token = {
+const blueToken: Token = {
     name: 'blue',
     value: 1.10
 }
-const redToken : Token = {
+const redToken: Token = {
     name: 'red',
     value: 1.80
 }

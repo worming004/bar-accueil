@@ -87,13 +87,13 @@ function SetPresentation(state: CounterState) {
             const relatedItem = result.find(it => it.name === act.item.name)
             if (!relatedItem) return;
 
-            if (act.operation === 'Add'){
+            if (act.operation === 'Add') {
                 relatedItem.count++;
             } else if (act.operation === 'Subtract') {
                 relatedItem.count--;
             }
         })
-        return  result;
+        return result;
     }
     state.presentation = {
         amount: amountFunc(state.actions),

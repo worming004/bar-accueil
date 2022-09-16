@@ -1,9 +1,9 @@
 import {Item, Token} from "./counterSlice";
 import {createAsyncThunk} from "@reduxjs/toolkit";
 
-type itemsFilesType  = {
-    items: {name: string, tokenName: string}[],
-    tokens: {name: string, value: number},
+type itemsFilesType = {
+    items: { name: string, tokenName: string }[],
+    tokens: { name: string, value: number }[],
 }
 
 function getTokenByName(tokens: Token[], name: string): Token {
@@ -23,7 +23,7 @@ export const data = createAsyncThunk(
     }
 )
 
-export function getItems(fileContent: { items: { name: any; tokenName: string; }[], tokens: Token[] }): Item[] {
+export function getItems(fileContent: itemsFilesType): Item[] {
     const tokens = fileContent.tokens;
     return fileContent.items.map(i => ({name: i.name, token: getTokenByName(tokens, i.tokenName)}))
 }
@@ -31,6 +31,7 @@ export function getItems(fileContent: { items: { name: any; tokenName: string; }
 export function getTokens(fileContent: { tokens: Token[] }): Token[] {
     return fileContent.tokens;
 }
+
 //
 // export const itemsApi = createApi({
 //     reducerPath: 'itemsApi',
