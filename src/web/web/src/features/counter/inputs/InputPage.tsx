@@ -1,5 +1,5 @@
-import {selectItems} from "../counter/counterSlice";
-import {useAppSelector} from "../../app/hooks";
+import {selectItems} from "../counterSlice";
+import {useAppSelector} from "../../../app/hooks";
 
 export function InputPage() {
     const inputs = useAppSelector(selectItems)

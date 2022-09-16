@@ -5,7 +5,7 @@ import {
     selectItems, selectPresentation,
 } from './counterSlice';
 import styles from './Counter.module.css';
-import {InputPage} from "../inputs/InputPage";
+import {InputPage} from "./inputs/InputPage";
 
 export function Counter() {
     const items = useAppSelector(selectItems);
