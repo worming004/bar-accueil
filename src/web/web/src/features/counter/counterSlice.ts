@@ -103,7 +103,7 @@ function SetPresentation(state: CounterState) {
     const tokensWithCount = (tokens: TokenWithCount[], actions: Action[]): TokenWithCount[] => {
         tokens.forEach(t => t.count = 0);
         actions.forEach(a => {
-            const token = getTokenByName(tokens, a.item.token.name) as TokenWithCount;
+            const token = getTokenByName(tokens, a.item.token.name);
             if (!token) {
                 console.log('token not found');
                 return;

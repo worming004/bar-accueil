@@ -6,7 +6,7 @@ type itemsFilesType = {
     tokens: { name: string, value: number }[],
 }
 
-export function getTokenByName(tokens: Token[], name: string): Token {
+export function getTokenByName<T extends Token>(tokens: T[], name: string): T {
     const token = tokens.find(t => t.name === name);
     if (!token) {
         throw new Error("token not found");
