@@ -9,12 +9,12 @@
       "tokenName": "adult card"
     },
     {
-      "name": "Repas enfant",
-      "tokenName": "kid card"
-    },
-    {
       "name": "Eau Grenadine Café",
       "tokenName": "orange"
+    },
+    {
+      "name": "Repas enfant",
+      "tokenName": "kid card"
     }
   ],
   "tokens": [
