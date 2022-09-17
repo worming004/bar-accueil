@@ -5,7 +5,7 @@ import {
     switchModeTo,
     undo,
     reset,
-    selectPresentationMode
+    selectPresentationMode, ItemWithCount
 } from "../counterSlice";
 import {useAppSelector} from "../../../app/hooks";
 import {store} from "../../../app/store";
@@ -62,7 +62,7 @@ export function InputPage() {
         </>)
 }
 
-function SingleButton(props: Item) {
+function SingleButton(props: ItemWithCount) {
     const dispatchItem = () => store.dispatch(executeSelection(props))
     const cardStyle = {
         // TODO: select color with specified property
@@ -70,11 +70,18 @@ function SingleButton(props: Item) {
         width: "200px",
         height: "250px",
         margin: "25px",
+        position: 'relative' as 'relative'
     };
     const textStyle = {
         fontSize: "35px",
-        flexShrink: 0
+        flexShrink: 0,
     }
+    const countStyle = {
+        bottom: '0px',
+        right: '0px',
+        position: 'absolute' as 'absolute',
+        fontSize: '20px'
+    };
     return (
         <button
             key={props.name}
@@ -82,5 +89,6 @@ function SingleButton(props: Item) {
             style={cardStyle}
         >
             <span style={textStyle}>{props.name}</span>
+            <div style={countStyle} className='m-2'>{props.count}</div>
         </button>)
 }
