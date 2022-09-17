@@ -9,7 +9,7 @@ import {
 } from "../counterSlice";
 import {useAppSelector} from "../../../app/hooks";
 import {store} from "../../../app/store";
-import {GetColor} from "../../items";
+import {GetItemColor} from "../../items";
 
 function Control() {
     const undoClick = () => store.dispatch(undo())
@@ -21,11 +21,11 @@ function Control() {
     }
     const plusStyle = {
         ...commonMathSignStyle,
-        color: mode ===  'Add' ? 'black' : 'slategray'
+        color: mode === 'Add' ? 'black' : 'slategray'
     }
     const minusStyle = {
         ...commonMathSignStyle,
-        color: mode ===  'Subtract' ? 'black' : 'slategray'
+        color: mode === 'Subtract' ? 'black' : 'slategray'
     }
 
     const resetStyle = {
@@ -47,13 +47,9 @@ function Control() {
 export function InputPage() {
     const inputs = useAppSelector(selectPresentationItems)
     const inputsHtml = inputs.map(SingleButton)
-    const style = {}
     return (
         <>
-            <div
-                className="flex flex-wrap"
-                style={style}
-            >
+            <div className="flex flex-wrap">
                 {inputsHtml}
             </div>
             <div>
@@ -66,7 +62,7 @@ function SingleButton(props: ItemWithCount) {
     const dispatchItem = () => store.dispatch(executeSelection(props))
     const cardStyle = {
         // TODO: select color with specified property
-        backgroundColor: GetColor(props),
+        backgroundColor: GetItemColor(props),
         width: "200px",
         height: "250px",
         margin: "25px",
@@ -80,7 +76,7 @@ function SingleButton(props: ItemWithCount) {
         bottom: '0px',
         right: '0px',
         position: 'absolute' as 'absolute',
-        fontSize: '20px'
+        fontSize: '25px'
     };
     return (
         <button

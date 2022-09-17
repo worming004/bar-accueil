@@ -1,5 +1,6 @@
 import {Item} from "./counter/counterSlice";
+import {GetTokenColor} from "./tokens";
 
-export function GetColor(item: Item): string {
-    return item.tokens[0]?.displayColor ?? "#f1f1f1"
+export function GetItemColor(item: Item): string {
+    return GetTokenColor(item.tokens[0] ?? undefined) ?? "#f1f1f1"
 }
