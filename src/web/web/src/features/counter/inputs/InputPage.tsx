@@ -1,4 +1,12 @@
-import {executeSelection, Item, selectPresentationItems, switchModeTo, undo, reset} from "../counterSlice";
+import {
+    executeSelection,
+    Item,
+    selectPresentationItems,
+    switchModeTo,
+    undo,
+    reset,
+    selectPresentationMode
+} from "../counterSlice";
 import {useAppSelector} from "../../../app/hooks";
 import {store} from "../../../app/store";
 import {GetColor} from "../../items";
@@ -7,6 +15,14 @@ function Control() {
     const undoClick = () => store.dispatch(undo())
     const resetClick = () => store.dispatch(reset())
     const switchModeToClick = () => store.dispatch(switchModeTo())
+    const mode = useAppSelector(selectPresentationMode)
+    const plusStyle = {
+        color: mode ===  'Add' ? 'black' : 'gray'
+    }
+    const minusStyle = {
+        color: mode ===  'Subtract' ? 'black' : 'gray'
+    }
+
     const resetStyle = {
         fontSize: "35px",
     }
@@ -16,7 +32,10 @@ function Control() {
         <>
             <button style={resetStyle} className={controlClasses} onClick={() => resetClick()}>Reset</button>
             <button style={resetStyle} className={controlClasses} onClick={() => undoClick()}>Undo</button>
-            <button style={resetStyle} className={controlClasses} onClick={() => switchModeToClick()}>Switch Mode</button>
+            <button style={resetStyle} className={controlClasses} onClick={() => switchModeToClick()}>
+                <span style={plusStyle} className="m-4">+</span>
+                <span style={minusStyle} className="m-4">-</span>
+            </button>
         </>);
 }
 

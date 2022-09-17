@@ -183,6 +183,7 @@ export const {addItem, addItemsByBatch, executeSelection, setModeTo, switchModeT
 export const selectPresentationItems = (state: RootState) => state.counter.presentation.items;
 export const selectPresentationTokens = (state: RootState) => state.counter.presentation.tokens;
 export const selectPresentationAmount = (state: RootState) => state.counter.presentation.amount;
+export const selectPresentationMode = (state: RootState) => state.counter.presentation.mode;
 export const selectPresentation = (state: RootState) => state.counter.presentation;
 
 // We can also write thunks by hand, which may contain both sync and async logic.
