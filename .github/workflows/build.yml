@@ -10,7 +10,7 @@ on:
     branches: [ "master" ]
 
 env:
-  workdir: src/web/
+  WORKDIR: src/web/
 
 jobs:
   build:
@@ -33,7 +33,7 @@ jobs:
     - run: npm ci
       working-directory: ${{workdir}}
     - run: npm run build --if-present
-      working-directory: ${{workdir}}
+      working-directory: $WORKDIR
     - run: npm test
       working-directory: ${{workdir}}
     - name: Upload a Build Artifact
