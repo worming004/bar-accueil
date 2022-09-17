@@ -23,17 +23,6 @@ export function Counter() {
             <div style={outputStyle}>
                 <OutputPage></OutputPage>
             </div>
-
-            <br/>
-            <br/>
-            <div className={styles.row}>
-                {JSON.stringify(items)}
-                <br/>
-                {JSON.stringify(presentation)}
-            </div>
-            <div className={styles.row}>
-
-            </div>
         </div>
     );
 }
