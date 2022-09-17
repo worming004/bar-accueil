@@ -9,6 +9,9 @@ on:
   pull_request:
     branches: [ "master" ]
 
+env:
+  workdir: src/web/
+
 jobs:
   build:
     
@@ -28,10 +31,13 @@ jobs:
         cache: 'npm'
         cache-dependency-path: src/web/package-lock.json
     - run: npm ci
+      working-directory: ${{workdir}}
     - run: npm run build --if-present
+      working-directory: ${{workdir}}
     - run: npm test
+      working-directory: ${{workdir}}
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.0
       with:
-        path: ./build/**
+        path: src/web/build/**
         if-no-files-found: error
