@@ -1,6 +1,5 @@
 import {
     executeSelection,
-    Item,
     selectPresentationItems,
     switchModeTo,
     undo,

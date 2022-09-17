@@ -2,7 +2,6 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from '../../app/store';
 import {data, getItems, getTokenByName, getTokens} from "./fillStoreFromJson";
 import {aggregateValues} from "../tokens";
-import {stat} from "fs";
 
 type Mode = 'Add' | 'Subtract'
 

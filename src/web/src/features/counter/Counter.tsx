@@ -4,14 +4,10 @@ import {useAppSelector} from '../../app/hooks';
 import {
     selectPresentationItems, selectPresentation,
 } from './counterSlice';
-import styles from './Counter.module.css';
 import {InputPage} from "./inputs/InputPage";
 import {OutputPage} from "./outputs/OutputPage";
 
 export function Counter() {
-    const items = useAppSelector(selectPresentationItems);
-    const presentation = useAppSelector(selectPresentation)
-
     const inputStyle = {maxWidth: "70%"}
     const outputStyle = {maxWidth: "30%"}
 
