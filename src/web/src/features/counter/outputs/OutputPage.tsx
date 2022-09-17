@@ -7,7 +7,7 @@ export function OutputPage() {
     const amount = useAppSelector(selectPresentationAmount);
     const tokensHtml = tokens.map(TokenPresentation)
     return (<>
-        <div className="flew flex-wrap">
+        <div className="flex flex-wrap">
             {tokensHtml}
         </div>
         <AmountPresentation amount={amount}></AmountPresentation>

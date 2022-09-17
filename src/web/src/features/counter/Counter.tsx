@@ -12,7 +12,7 @@ export function Counter() {
             <div style={inputStyle} className="border-r-8 border-yellow-700">
                 <InputPage></InputPage>
             </div>
-            <div style={outputStyle}>
+            <div style={outputStyle} >
                 <OutputPage></OutputPage>
             </div>
         </div>

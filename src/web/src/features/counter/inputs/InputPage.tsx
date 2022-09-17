@@ -59,16 +59,18 @@ export function InputPage() {
 
 function SingleButton(props: ItemWithCount) {
     const dispatchItem = () => store.dispatch(executeSelection(props))
+    const squareSize = "125px";
     const cardStyle = {
         // TODO: select color with specified property
         backgroundColor: GetItemColor(props),
-        width: "200px",
-        height: "250px",
+        width: squareSize,
+        height: squareSize,
         margin: "25px",
+        padding: "25px",
         position: 'relative' as 'relative'
     };
     const textStyle = {
-        fontSize: "35px",
+        fontSize: "20px",
         flexShrink: 0,
     }
     const countStyle = {
