@@ -1,9 +1,5 @@
 import React from 'react';
 
-import {useAppSelector} from '../../app/hooks';
-import {
-    selectPresentationItems, selectPresentation,
-} from './counterSlice';
 import {InputPage} from "./inputs/InputPage";
 import {OutputPage} from "./outputs/OutputPage";
 
