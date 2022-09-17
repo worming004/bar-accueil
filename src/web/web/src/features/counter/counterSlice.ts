@@ -28,6 +28,7 @@ export interface Item {
 export interface Token {
     name: string,
     value: number,
+    shape: 'round' | 'card',
     displayColor: string
 }
 

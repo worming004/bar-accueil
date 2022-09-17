@@ -79,26 +79,31 @@
     {
       "name": "orange",
       "displayColor": "orange",
+      "shape": "round",
       "value": 1.8
     },
     {
       "name": "grey",
       "displayColor": "grey",
+      "shape": "round",
       "value": 2
     },
     {
       "name": "green",
       "displayColor": "green",
+      "shape": "round",
       "value": 1.5
     },
     {
       "name": "adult card",
       "displayColor": "#2222f4",
+      "shape": "card",
       "value": 14
     },
     {
       "name": "kid card",
       "displayColor": "#f42222",
+      "shape": "card",
       "value": 10
     }
   ]
