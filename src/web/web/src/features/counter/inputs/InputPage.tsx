@@ -16,17 +16,22 @@ function Control() {
     const resetClick = () => store.dispatch(reset())
     const switchModeToClick = () => store.dispatch(switchModeTo())
     const mode = useAppSelector(selectPresentationMode)
+    const commonMathSignStyle = {
+        transition: 'color 0.2s',
+    }
     const plusStyle = {
-        color: mode ===  'Add' ? 'black' : 'gray'
+        ...commonMathSignStyle,
+        color: mode ===  'Add' ? 'black' : 'slategray'
     }
     const minusStyle = {
-        color: mode ===  'Subtract' ? 'black' : 'gray'
+        ...commonMathSignStyle,
+        color: mode ===  'Subtract' ? 'black' : 'slategray'
     }
 
     const resetStyle = {
         fontSize: "35px",
     }
-    const controlClasses = "border-4 m-4 p-4"
+    const controlClasses = "border-4 m-8 p-8"
     // TODO bind to feature
     return (
         <>
