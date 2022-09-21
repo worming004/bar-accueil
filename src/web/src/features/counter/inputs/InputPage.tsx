@@ -59,8 +59,9 @@ export function InputPage() {
 
 function SingleButton(props: ItemWithCount) {
     const dispatchItem = () => store.dispatch(executeSelection(props))
+    const mode = useAppSelector(selectPresentationMode)
     const squareSize = "125px";
-    const cardStyle = {
+    const cardStyle : any = {
         // TODO: select color with specified property
         backgroundColor: GetItemColor(props),
         width: squareSize,
@@ -69,6 +70,9 @@ function SingleButton(props: ItemWithCount) {
         padding: "25px",
         position: 'relative' as 'relative'
     };
+    if (mode === 'Subtract') {
+        cardStyle.border = '3px solid red'
+    }
     const textStyle = {
         fontSize: "20px",
         flexShrink: 0,
