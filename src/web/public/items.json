@@ -80,13 +80,13 @@
       "name": "orange",
       "displayColor": "orange",
       "shape": "round",
-      "value": 1.8
+      "value": 2
     },
     {
       "name": "grey",
       "displayColor": "grey",
       "shape": "round",
-      "value": 2
+      "value": 2.5
     },
     {
       "name": "green",
