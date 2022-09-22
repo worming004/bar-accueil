@@ -31,7 +31,7 @@ function Control(props: any) {
     const resetStyle = {
         fontSize: "35px",
     }
-    const controlClasses = "border-4 m-8 p-8"
+    const controlClasses = "border-4 m-5 p-4"
 
     // TODO bind to feature
     return (
@@ -64,13 +64,13 @@ export function InputPage() {
 function SingleButton(props: ItemWithCount, mode: Mode) {
     const dispatchItem = () => store.dispatch(executeSelection(props))
 
-    const squareSize = "125px";
+    const squareSize = "120px";
     const cardStyle : any = {
         // TODO: select color with specified property
         backgroundColor: GetItemColor(props),
         width: squareSize,
         height: squareSize,
-        margin: "25px",
+        margin: "18px",
         padding: "25px",
         position: 'relative' as 'relative'
     };

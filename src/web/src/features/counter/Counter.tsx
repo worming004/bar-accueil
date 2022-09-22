@@ -4,8 +4,8 @@ import {InputPage} from "./inputs/InputPage";
 import {OutputPage} from "./outputs/OutputPage";
 
 export function Counter() {
-    const inputStyle = {maxWidth: "70%"}
-    const outputStyle = {maxWidth: "30%"}
+    const inputStyle = {maxWidth: "75%"}
+    const outputStyle = {maxWidth: "25%"}
 
     return (
         <div className="flex flex-wrap">
