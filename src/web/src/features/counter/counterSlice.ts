@@ -9,9 +9,14 @@ export interface CounterState {
     actions: Action[],
     items: Item[],
     tokens: Token[],
+    featureFlag?: FeatureFlag,
     mode: Mode,
     presentation: Presentation,
     status?: string
+}
+
+export interface FeatureFlag {
+    showUndo?: boolean
 }
 
 export interface Action {
@@ -52,6 +57,9 @@ export const initialState: CounterState = {
     actions: [],
     items: [],
     tokens: [],
+    featureFlag: {
+        showUndo: false,
+    },
     mode: defaultMode,
     presentation: {
         tokens: [],
@@ -185,6 +193,7 @@ export const selectPresentationTokens = (state: RootState) => state.counter.pres
 export const selectPresentationAmount = (state: RootState) => state.counter.presentation.amount;
 export const selectPresentationMode = (state: RootState) => state.counter.presentation.mode;
 export const selectPresentation = (state: RootState) => state.counter.presentation;
+export const selectFeatureFlag = (state: RootState) => state.counter.featureFlag;
 
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.

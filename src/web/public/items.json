@@ -1,77 +1,93 @@
 {
   "items": [
     {
-      "name": "wapils grisette",
+      "name": "SANS GLUTEN",
       "tokenNames": [
         "orange"
       ]
     },
     {
-      "name": "blanche mystic moinette",
+      "name": "MAES 0%",
+      "tokenNames": [
+        "orange"
+      ]
+    },
+    {
+      "name": "WAPILS",
       "tokenNames": [
         "grey"
       ]
     },
     {
-      "name": "rasta mousse",
-      "tokenNames": [
-        "grey"
-      ]
-    },
-    {
-      "name": "biere bouteille",
-      "tokenNames": [
-        "grey",
-        "grey",
-        "grey"
-      ]
-    },
-    {
-      "name": "coca fanta jus",
-      "tokenNames": [
-        "orange"
-      ]
-    },
-    {
-      "name": "eau grenadine café",
-      "tokenNames": [
-        "green"
-      ]
-    },
-    {
-      "name": "vin au verre",
-      "tokenNames": [
-        "orange"
-      ]
-    },
-    {
-      "name": "vin bouteille",
-      "tokenNames": [
-        "orange",
-        "orange",
-        "orange",
-        "orange",
-        "orange",
-        "orange"
-      ]
-    },
-    {
-      "name": "tarte gaufre glace",
+      "name": "APERO",
       "tokenNames": ["grey"]
     },
     {
-      "name": "repas adulte",
+      "name": "BLANCHE MOINETTE MYSTIC",
+      "tokenNames": [
+        "grey"
+      ]
+    },
+    {
+      "name": "RASTA MOUSSE",
+      "tokenNames": [
+        "grey"
+      ]
+    },
+    {
+      "name": "BIERE BOUTEILLE",
+      "tokenNames": [
+        "grey",
+        "grey",
+        "grey"
+      ]
+    },
+    {
+      "name": "COCA FANTA JUS",
+      "tokenNames": [
+        "orange"
+      ]
+    },
+    {
+      "name": "EAU GRENADINE CAFE",
+      "tokenNames": [
+        "green"
+      ]
+    },
+    {
+      "name": "VIN AU VERRE",
+      "tokenNames": [
+        "orange"
+      ]
+    },
+    {
+      "name": "VIN BOUTEILLE",
+      "tokenNames": [
+        "orange",
+        "orange",
+        "orange",
+        "orange",
+        "orange",
+        "orange"
+      ]
+    },
+    {
+      "name": "TARTE GAUFFRE GLACE",
+      "tokenNames": ["green", "green"]
+    },
+    {
+      "name": "REPAS ADULTE",
       "tokenNames": ["adult card"]
     },
     {
-      "name": "repas enfant",
+      "name": "REPAS ENFANT",
       "tokenNames": ["kid card"]
     },
     {
-      "name": "pain saucisse",
+      "name": "PAIN SAUCISSE",
       "tokenNames": [
-        "green",
-        "green"
+        "orange",
+        "orange"
       ]
     }
   ],
