@@ -1,6 +1,12 @@
 {
   "items": [
     {
+      "name": "WAPILS",
+      "tokenNames": [
+        "orange"
+      ]
+    },
+    {
       "name": "SANS GLUTEN",
       "tokenNames": [
         "orange"
@@ -10,12 +16,6 @@
       "name": "MAES 0%",
       "tokenNames": [
         "orange"
-      ]
-    },
-    {
-      "name": "WAPILS",
-      "tokenNames": [
-        "grey"
       ]
     },
     {
@@ -60,13 +60,13 @@
       ]
     },
     {
-      "name": "COCA FANTA JUS",
+      "name": "COCA FANTA",
       "tokenNames": [
         "orange"
       ]
     },
     {
-      "name": "EAU GRENADINE CAFE",
+      "name": "EAU, JUS GRENADINE CAFE",
       "tokenNames": [
         "green"
       ]
