@@ -85,7 +85,8 @@ function SingleButton(props: ItemWithCount, mode: Mode) {
         bottom: '0px',
         right: '0px',
         position: 'absolute' as 'absolute',
-        fontSize: '25px'
+        fontSize: '25px',
+        margin: '2px'
     };
     return (
         <button
