@@ -71,7 +71,7 @@ function SingleButton(props: ItemWithCount, mode: Mode) {
         width: squareSize,
         height: squareSize,
         margin: "18px",
-        padding: "25px",
+        padding: "5px",
         position: 'relative' as 'relative'
     };
     if (mode === 'Subtract') {
