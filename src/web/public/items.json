@@ -19,10 +19,6 @@
       ]
     },
     {
-      "name": "APERO",
-      "tokenNames": ["grey"]
-    },
-    {
       "name": "BLANCHE MOINETTE MYSTIC",
       "tokenNames": [
         "grey"
@@ -35,23 +31,15 @@
       ]
     },
     {
+      "name": "APERO",
+      "tokenNames": ["grey"]
+    },
+    {
       "name": "BIERE BOUTEILLE",
       "tokenNames": [
         "grey",
         "grey",
         "grey"
-      ]
-    },
-    {
-      "name": "COCA FANTA JUS",
-      "tokenNames": [
-        "orange"
-      ]
-    },
-    {
-      "name": "EAU GRENADINE CAFE",
-      "tokenNames": [
-        "green"
       ]
     },
     {
@@ -69,6 +57,18 @@
         "orange",
         "orange",
         "orange"
+      ]
+    },
+    {
+      "name": "COCA FANTA JUS",
+      "tokenNames": [
+        "orange"
+      ]
+    },
+    {
+      "name": "EAU GRENADINE CAFE",
+      "tokenNames": [
+        "green"
       ]
     },
     {
