@@ -19,7 +19,6 @@ function TokenPresentation(props: TokenWithCount) {
         fontSize: '35px',
         width: "100px",
         height: "100px",
-        margin: "25px",
         backgroundColor: GetTokenColor(props)
     }
     const roundStyle = {
@@ -33,6 +32,9 @@ function TokenPresentation(props: TokenWithCount) {
     const roundClass = commonClass + 'rounded-full'
     const cardClass = commonClass + ''
     const elementClassName = 'm-auto'
+    const boxStyle = {
+        margin: "25px",
+    }
 
     const selectedStyle = props.shape === 'round' ? {
         style: roundStyle,
@@ -41,14 +43,18 @@ function TokenPresentation(props: TokenWithCount) {
         style: cardStyle,
         class: cardClass
     } : undefined
-    return (
+    return (<div style={boxStyle}>
         <div
             key={props.name}
             style={selectedStyle?.style}
             className={selectedStyle?.class}
         >
             <span className={elementClassName}>{props.count}</span>
-        </div>)
+        </div>
+        <div className="m-auto text-lg">
+        {props.value}€
+        </div>
+    </div>)
 }
 
 function AmountPresentation(props: { amount: number }) {
