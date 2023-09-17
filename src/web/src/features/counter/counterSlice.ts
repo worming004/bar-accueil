@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { data, getItems, getTokenByName, getTokens } from "./fillStoreFromJson";
 import { aggregateValues } from "../tokens";
+import { warn } from 'console';
 
 type TokenMode = 'Add' | 'Subtract'
 type PresentationMode = 'Token' | 'Payment'
@@ -11,6 +12,8 @@ export interface CounterState {
   items: Item[],
   tokens: Token[],
   featureFlag?: FeatureFlag,
+  amountReceived: number,
+  amountToGiveBack: number,
   tokenMode: TokenMode,
   presentationMode: PresentationMode,
   presentation: Presentation,
@@ -64,6 +67,8 @@ export const initialState: CounterState = {
   },
   tokenMode: defaultMode,
   presentationMode: 'Token',
+  amountReceived: 0,
+  amountToGiveBack: 0,
   presentation: {
     tokens: [],
     tokenMode: defaultMode,
@@ -120,7 +125,11 @@ export const counterSlice = createSlice({
     tokenMode: (state) => {
       state.presentationMode = 'Token'
       SetPresentation(state)
-    }
+    },
+    amountReceived: (state, action: PayloadAction<number>) => {
+      state.amountReceived = action.payload;
+      state.amountToGiveBack = state.amountReceived - state.presentation.amount;
+    },
   },
   extraReducers: builder => {
     builder.addCase(data.fulfilled, (state, action) => {
@@ -195,7 +204,7 @@ function SetPresentation(state: CounterState) {
   };
 }
 
-export const { addItem, addItemsByBatch, executeSelection, setModeTo, switchModeTo, reset, paymentMode, tokenMode, undo } = counterSlice.actions;
+export const { addItem, addItemsByBatch, executeSelection, amountReceived: amountReceived, setModeTo, switchModeTo, reset, paymentMode, tokenMode, undo } = counterSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
@@ -204,6 +213,7 @@ export const selectPresentationItems = (state: RootState) => state.counter.prese
 export const selectPresentationTokens = (state: RootState) => state.counter.presentation.tokens;
 export const selectPresentationMode = (state: RootState) => state.counter.presentationMode;
 export const selectPresentationAmount = (state: RootState) => state.counter.presentation.amount;
+export const selectAmountToGiveBack = (state: RootState) => state.counter.amountToGiveBack;
 export const selectTokenMode = (state: RootState) => state.counter.presentation.tokenMode;
 export const selectPresentation = (state: RootState) => state.counter.presentation;
 export const selectFeatureFlag = (state: RootState) => state.counter.featureFlag;

@@ -36,11 +36,13 @@ describe('counter reducer', () => {
 
   it('should handle initial state', () => {
     expect(counterReducer(undefined, { type: 'unknown' })).toEqual({
+      actions: [],
       items: [],
       featureFlag: {
         showUndo: false,
       },
-      actions: [],
+      amountReceived: 0,
+      amountToGiveBack: 0,
       presentationMode: "Token",
       tokenMode: "Add",
       tokens: [],
@@ -93,6 +95,8 @@ describe('counter reducer', () => {
       featureFlag: {
         showUndo: false,
       },
+      amountReceived: 0,
+      amountToGiveBack: 0,
       presentationMode: "Token",
       tokenMode: "Add",
       tokens: [...cocaItem.tokens],
