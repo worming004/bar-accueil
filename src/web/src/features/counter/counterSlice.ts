@@ -91,8 +91,8 @@ export const counterSlice = createSlice({
     },
     executeSelection: (state, action: PayloadAction<Item>) => {
       state.actions.push({ item: action.payload, operation: state.tokenMode })
-      SetToGiveBack(state)
       SetPresentation(state);
+      SetToGiveBack(state)
     },
     setModeTo: (state, action: PayloadAction<TokenMode>) => {
       state.tokenMode = action.payload;
@@ -108,6 +108,7 @@ export const counterSlice = createSlice({
           break;
       }
       SetPresentation(state);
+      SetToGiveBack(state)
     },
     undo: (state) => {
       state.actions.pop();
@@ -120,8 +121,8 @@ export const counterSlice = createSlice({
     },
     resetAmountReceived: (state) => {
       state.amountReceived = 0;
-      SetToGiveBack(state)
       SetPresentation(state);
+      SetToGiveBack(state)
     },
     paymentMode: (state) => {
       state.presentationMode = 'Payment'
@@ -133,8 +134,8 @@ export const counterSlice = createSlice({
     },
     amountReceived: (state, action: PayloadAction<number>) => {
       state.amountReceived = action.payload;
-      SetToGiveBack(state)
       SetPresentation(state)
+      SetToGiveBack(state)
     },
   },
   extraReducers: builder => {
@@ -143,8 +144,8 @@ export const counterSlice = createSlice({
       const tokens = getTokens(action.payload)
       state.tokens = tokens;
       state.presentation.tokens = tokens.map(t => ({ ...t, count: 0 }))
-      SetToGiveBack(state)
       SetPresentation(state)
+      SetToGiveBack(state)
     })
     builder.addCase(data.rejected, (state) => {
       state.status = "ERROR"
