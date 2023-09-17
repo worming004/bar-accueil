@@ -43,7 +43,7 @@ jobs:
         if-no-files-found: error
         name: bar
 
-    deploy:
+  deploy:
     name: deploy
     runs-on: ubuntu-latest
     needs: build
