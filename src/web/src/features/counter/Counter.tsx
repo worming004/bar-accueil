@@ -7,12 +7,10 @@ import Modal from 'react-modal'
 import { useAppSelector } from '../../app/hooks';
 import { selectPresentationMode } from './counterSlice';
 
-
 export function Counter() {
   const inputStyle = { maxWidth: "75%" }
   const modalStyle = { content: { maxWidth: "65%" } }
   const outputStyle = { maxWidth: "25%" }
-
 
   const presentationMode = useAppSelector(selectPresentationMode);
 
