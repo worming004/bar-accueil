@@ -28,7 +28,7 @@ export function ReturnPage() {
       <span className='text-4xl'>{amountToPay.toFixed(2)}€</span>
       <br />
       <label htmlFor="recu" className='text-4xl'>Reçu: </label>
-      <input type='number' id='recu' className={controlClasses} onChange={(evt) => { valueReceivedHandler(evt) }} defaultValue={amountReceivedValue}></input>
+      <input type='number' step=".01" id='recu' className={controlClasses} onChange={(evt) => { valueReceivedHandler(evt) }} defaultValue={amountReceivedValue}></input>
       <br />
       <span className='text-4xl'>Retour: </span>
       <span className='text-4xl' style={retourColor}>{toGiveBack.toFixed(2)}€</span>
