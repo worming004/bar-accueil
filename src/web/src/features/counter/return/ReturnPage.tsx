@@ -21,6 +21,7 @@ export function ReturnPage() {
   }
   const valueReceivedHandler = (val: React.ChangeEvent<HTMLInputElement>) => {
     store.dispatch(amountReceived(+val.target.value))
+    val.target.blur()
   }
   return (
     <>
