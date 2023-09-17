@@ -1,6 +1,6 @@
 import { useAppSelector } from "../../../app/hooks";
 import { store } from "../../../app/store";
-import { reset, selectPresentationAmount, selectPresentationTokens, tokenMode } from "../counterSlice";
+import { reset, selectPresentationAmount, tokenMode } from "../counterSlice";
 
 export function ReturnPage() {
   const amount = useAppSelector(selectPresentationAmount);
@@ -27,6 +27,5 @@ export function ReturnPage() {
       <button className={controlClasses} style={style} onClick={() => { toTokenModeClick() }}>Retour</button>
       <button className={controlClasses} style={style} onClick={() => { resetAndToTokenMode() }}>Valider</button>
     </>
-
   )
 }

@@ -93,7 +93,7 @@ export const counterSlice = createSlice({
       state.tokenMode = action.payload;
       SetPresentation(state);
     },
-    switchModeTo: (state, action: PayloadAction) => {
+    switchModeTo: (state) => {
       switch (state.tokenMode) {
         case 'Add':
           state.tokenMode = 'Subtract'
@@ -104,20 +104,20 @@ export const counterSlice = createSlice({
       }
       SetPresentation(state);
     },
-    undo: (state, action: PayloadAction) => {
+    undo: (state) => {
       state.actions.pop();
       SetPresentation(state);
     },
-    reset: (state, action: PayloadAction) => {
+    reset: (state) => {
       state.actions = [];
       state.tokenMode = defaultMode
       SetPresentation(state);
     },
-    paymentMode: (state, action: PayloadAction) => {
+    paymentMode: (state) => {
       state.presentationMode = 'Payment'
       SetPresentation(state)
     },
-    tokenMode: (state, action: PayloadAction) => {
+    tokenMode: (state) => {
       state.presentationMode = 'Token'
       SetPresentation(state)
     }
@@ -130,10 +130,10 @@ export const counterSlice = createSlice({
       state.presentation.tokens = tokens.map(t => ({ ...t, count: 0 }))
       SetPresentation(state)
     })
-    builder.addCase(data.rejected, (state, action) => {
+    builder.addCase(data.rejected, (state) => {
       state.status = "ERROR"
     })
-    builder.addCase(data.pending, (state, action) => {
+    builder.addCase(data.pending, (state) => {
       state.status = "PENDING"
     })
   }
@@ -147,7 +147,6 @@ function SetPresentation(state: CounterState) {
       case "Subtract":
         return prev - aggregateValues(next.item.tokens);
     }
-    return prev;
   }, 0);
 
   const itemsWithCount = (items: Item[], actions: Action[]): ItemWithCount[] => {
