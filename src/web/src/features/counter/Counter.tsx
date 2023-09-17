@@ -5,7 +5,8 @@ import { OutputPage } from "./outputs/OutputPage";
 import { ReturnPage } from './return/ReturnPage';
 import Modal from 'react-modal'
 import { useAppSelector } from '../../app/hooks';
-import { selectPresentationMode } from './counterSlice';
+import { selectPresentationMode, tokenMode } from './counterSlice';
+import { store } from '../../app/store';
 
 export function Counter() {
   const inputStyle = { maxWidth: "75%" }
@@ -13,6 +14,7 @@ export function Counter() {
   const outputStyle = { maxWidth: "25%" }
 
   const presentationMode = useAppSelector(selectPresentationMode);
+  const toTokenModeClick = () => store.dispatch(tokenMode());
 
   return (
     <div className="flex flex-wrap">
@@ -21,6 +23,7 @@ export function Counter() {
         <Modal
           isOpen={presentationMode === 'Payment'}
           style={modalStyle}
+          onRequestClose={() => toTokenModeClick()}
         >
           <ReturnPage></ReturnPage>
         </Modal>
