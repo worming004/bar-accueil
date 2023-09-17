@@ -1,9 +1,9 @@
 {
   "items": [
     {
-      "name": "WAPILS",
+      "name": "WAPILS MAES 0%",
       "tokenNames": [
-        "orange"
+        "green"
       ]
     },
     {
@@ -13,26 +13,28 @@
       ]
     },
     {
-      "name": "MAES 0%",
+      "name": "BLANCHE MYSTIC",
       "tokenNames": [
         "orange"
       ]
     },
     {
-      "name": "BLANCHE MOINETTE MYSTIC",
+      "name": "MOINETTE MOUSSE RASTA",
       "tokenNames": [
         "grey"
       ]
     },
     {
-      "name": "RASTA MOUSSE",
+      "name": "BIERE TRAIL (Effort)",
       "tokenNames": [
         "grey"
       ]
     },
     {
       "name": "APERO",
-      "tokenNames": ["grey"]
+      "tokenNames": [
+        "orange"
+      ]
     },
     {
       "name": "BIERE BOUTEILLE",
@@ -45,24 +47,22 @@
     {
       "name": "VIN AU VERRE",
       "tokenNames": [
-        "orange"
+        "green"
       ]
     },
     {
       "name": "VIN BOUTEILLE",
       "tokenNames": [
-        "orange",
-        "orange",
-        "orange",
-        "orange",
-        "orange",
-        "orange"
+        "grey",
+        "grey",
+        "grey",
+        "grey"
       ]
     },
     {
       "name": "COCA FANTA",
       "tokenNames": [
-        "orange"
+        "green"
       ]
     },
     {
@@ -73,15 +73,21 @@
     },
     {
       "name": "TARTE GAUFFRE GLACE",
-      "tokenNames": ["green", "green"]
+      "tokenNames": [
+        "grey"
+      ]
     },
     {
       "name": "REPAS ADULTE",
-      "tokenNames": ["adult card"]
+      "tokenNames": [
+        "adult card"
+      ]
     },
     {
       "name": "REPAS ENFANT",
-      "tokenNames": ["kid card"]
+      "tokenNames": [
+        "kid card"
+      ]
     },
     {
       "name": "PAIN SAUCISSE",
@@ -93,22 +99,22 @@
   ],
   "tokens": [
     {
+      "name": "green",
+      "displayColor": "green",
+      "shape": "round",
+      "value": 2
+    },
+    {
       "name": "orange",
       "displayColor": "orange",
       "shape": "round",
-      "value": 2
+      "value": 2.5
     },
     {
       "name": "grey",
       "displayColor": "grey",
       "shape": "round",
-      "value": 2.5
-    },
-    {
-      "name": "green",
-      "displayColor": "green",
-      "shape": "round",
-      "value": 1.5
+      "value": 3
     },
     {
       "name": "adult card",
