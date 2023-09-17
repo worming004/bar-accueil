@@ -12,6 +12,10 @@ on:
 env:
   WORKDIR: src/web/
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   build:
     
