@@ -31,8 +31,8 @@ export function ReturnPage() {
       <input type='number' step=".01" id='recu' className={controlClasses} onChange={(evt) => { valueReceivedHandler(evt) }} defaultValue={amountReceivedValue}></input>
       <br />
       <span className='text-4xl'>Retour: </span>
-      <span className='text-4xl' style={retourColor}>{toGiveBack.toFixed(2)}€</span>
-      <button className={controlClasses} style={style} onClick={() => { resetAndToTokenMode() }}>Valider</button>
+      <div><span className='text-4xl' style={retourColor}>{toGiveBack.toFixed(2)}€</span></div>
+      <button className={controlClasses} style={style} onClick={() => { resetAndToTokenMode() }}>Valider et réinitialiser</button>
       <button className={controlClasses} style={style} onClick={() => { toTokenModeClick() }}>Modifier la commande</button>
     </>
   )
