@@ -146,6 +146,8 @@ function SetPresentation(state: CounterState) {
         return prev + aggregateValues(next.item.tokens);
       case "Subtract":
         return prev - aggregateValues(next.item.tokens);
+      default:
+        return prev;
     }
   }, 0);
 

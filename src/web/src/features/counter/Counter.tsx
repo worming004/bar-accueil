@@ -21,7 +21,7 @@ export function Counter() {
       <div style={inputStyle} className="border-r-8 border-yellow-700">
         <InputPage></InputPage>
         <Modal
-          isOpen={presentationMode == 'Payment'}
+          isOpen={presentationMode === 'Payment'}
           style={modalStyle}
         >
           <ReturnPage></ReturnPage>
