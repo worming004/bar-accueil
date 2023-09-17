@@ -113,8 +113,12 @@ export const counterSlice = createSlice({
       state.tokenMode = defaultMode
       SetPresentation(state);
     },
-    payment: (state, action: PayloadAction) => {
+    paymentMode: (state, action: PayloadAction) => {
       state.presentationMode = 'Payment'
+      SetPresentation(state)
+    },
+    tokenMode: (state, action: PayloadAction) => {
+      state.presentationMode = 'Token'
       SetPresentation(state)
     }
   },
@@ -190,7 +194,7 @@ function SetPresentation(state: CounterState) {
   };
 }
 
-export const { addItem, addItemsByBatch, executeSelection, setModeTo, switchModeTo, reset, payment, undo } = counterSlice.actions;
+export const { addItem, addItemsByBatch, executeSelection, setModeTo, switchModeTo, reset, paymentMode, tokenMode, undo } = counterSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of

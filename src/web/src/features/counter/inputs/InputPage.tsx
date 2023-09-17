@@ -4,7 +4,7 @@ import {
   switchModeTo,
   undo,
   reset,
-  selectTokenMode, ItemWithCount, FeatureFlag, selectFeatureFlag, payment
+  selectTokenMode, ItemWithCount, FeatureFlag, selectFeatureFlag, paymentMode
 } from "../counterSlice";
 import { useAppSelector } from "../../../app/hooks";
 import { store } from "../../../app/store";
@@ -14,7 +14,7 @@ import { Mode } from "fs";
 function Control(props: any) {
   const undoClick = () => store.dispatch(undo())
   const resetClick = () => store.dispatch(reset())
-  const paymentClick = () => store.dispatch(payment())
+  const paymentClick = () => store.dispatch(paymentMode())
   const switchModeToClick = () => store.dispatch(switchModeTo())
   const featureFlags: FeatureFlag = props.featureFlags;
   const commonMathSignStyle = {
@@ -36,10 +36,10 @@ function Control(props: any) {
 
   return (
     <>
-      <button style={resetStyle} className={controlClasses} onClick={() => resetClick()}>Reset</button>
-      <button style={resetStyle} className={controlClasses} onClick={() => paymentClick()}>Payment</button>
-      {featureFlags?.showUndo ? <button style={resetStyle} className={controlClasses} onClick={() => undoClick()}>Undo</button> : null}
-      <button style={resetStyle} className={controlClasses} onClick={() => switchModeToClick()}>
+      <button style={resetStyle} className={controlClasses} onClick={resetClick}>Reset</button>
+      <button style={resetStyle} className={controlClasses} onClick={paymentClick}>Payment</button>
+      {featureFlags?.showUndo ? <button style={resetStyle} className={controlClasses} onClick={undoClick}>Undo</button> : null}
+      <button style={resetStyle} className={controlClasses} onClick={switchModeToClick}>
         <span style={plusStyle} className="m-4">+</span>
         <span style={minusStyle} className="m-4">-</span>
       </button>
