@@ -3,19 +3,19 @@
     {
       "name": "WAPILS MAES 0%",
       "tokenNames": [
-        "green"
+        "orange"
       ]
     },
     {
       "name": "SANS GLUTEN",
       "tokenNames": [
-        "orange"
+        "green"
       ]
     },
     {
       "name": "BLANCHE MYSTIC",
       "tokenNames": [
-        "orange"
+        "green"
       ]
     },
     {
@@ -33,7 +33,7 @@
     {
       "name": "APERO",
       "tokenNames": [
-        "orange"
+        "green"
       ]
     },
     {
@@ -47,7 +47,7 @@
     {
       "name": "VIN AU VERRE",
       "tokenNames": [
-        "green"
+        "orange"
       ]
     },
     {
@@ -62,13 +62,13 @@
     {
       "name": "COCA FANTA",
       "tokenNames": [
-        "green"
+        "orange" 
       ]
     },
     {
       "name": "EAU, JUS GRENADINE CAFE",
       "tokenNames": [
-        "green"
+        "orange"
       ]
     },
     {
@@ -92,21 +92,21 @@
     {
       "name": "PAIN SAUCISSE",
       "tokenNames": [
-        "orange",
-        "orange"
+        "green",
+        "green"
       ]
     }
   ],
   "tokens": [
     {
-      "name": "green",
-      "displayColor": "green",
+      "name": "orange",
+      "displayColor": "orange",
       "shape": "round",
       "value": 2
     },
     {
-      "name": "orange",
-      "displayColor": "orange",
+      "name": "green",
+      "displayColor": "green",
       "shape": "round",
       "value": 2.5
     },
