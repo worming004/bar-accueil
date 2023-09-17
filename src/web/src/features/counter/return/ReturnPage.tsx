@@ -1,9 +1,10 @@
 import { useAppSelector } from "../../../app/hooks";
 import { store } from "../../../app/store";
-import { reset, selectPresentationAmount, tokenMode, amountReceived, selectAmountToGiveBack } from "../counterSlice";
+import { resetSelection, selectPresentationAmount, tokenMode, amountReceived, selectAmountToGiveBack, selectPresentationAmountReceived, resetAmountReceived } from "../counterSlice";
 
 export function ReturnPage() {
-  const amount = useAppSelector(selectPresentationAmount);
+  const amountToPay = useAppSelector(selectPresentationAmount);
+  const amountReceivedValue = useAppSelector(selectPresentationAmountReceived);
   const toGiveBack = useAppSelector(selectAmountToGiveBack)
   const style = {
     fontSize: "35px",
@@ -14,7 +15,8 @@ export function ReturnPage() {
 
   const toTokenModeClick = () => store.dispatch(tokenMode());
   const resetAndToTokenMode = () => {
-    store.dispatch(reset());
+    store.dispatch(resetSelection());
+    store.dispatch(resetAmountReceived());
     store.dispatch(tokenMode());
   }
   const valueReceivedHandler = (val: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,15 +25,15 @@ export function ReturnPage() {
   return (
     <>
       <span className='text-4xl'>Montant: </span>
-      <span className='text-4xl'>{amount.toFixed(2)}€</span>
+      <span className='text-4xl'>{amountToPay.toFixed(2)}€</span>
       <br />
       <label htmlFor="recu" className='text-4xl'>Reçu: </label>
-      <input type='number' id='recu' className={controlClasses} onChange={(evt) => { valueReceivedHandler(evt) }}></input>
+      <input type='number' id='recu' className={controlClasses} onChange={(evt) => { valueReceivedHandler(evt) }} defaultValue={amountReceivedValue}></input>
       <br />
       <span className='text-4xl'>Retour: </span>
       <span className='text-4xl' style={retourColor}>{toGiveBack.toFixed(2)}€</span>
       <button className={controlClasses} style={style} onClick={() => { resetAndToTokenMode() }}>Valider</button>
-      <button className={controlClasses} style={style} onClick={() => { toTokenModeClick() }}>Changer la commande</button>
+      <button className={controlClasses} style={style} onClick={() => { toTokenModeClick() }}>Modifier la commande</button>
     </>
   )
 }

@@ -92,6 +92,7 @@ export const counterSlice = createSlice({
     },
     executeSelection: (state, action: PayloadAction<Item>) => {
       state.actions.push({ item: action.payload, operation: state.tokenMode })
+      SetToGiveBack(state)
       SetPresentation(state);
     },
     setModeTo: (state, action: PayloadAction<TokenMode>) => {
@@ -113,9 +114,14 @@ export const counterSlice = createSlice({
       state.actions.pop();
       SetPresentation(state);
     },
-    reset: (state) => {
+    resetSelection: (state) => {
       state.actions = [];
       state.tokenMode = defaultMode
+      SetPresentation(state);
+    },
+    resetAmountReceived: (state) => {
+      state.amountReceived = 0;
+      SetToGiveBack(state)
       SetPresentation(state);
     },
     paymentMode: (state) => {
@@ -128,7 +134,8 @@ export const counterSlice = createSlice({
     },
     amountReceived: (state, action: PayloadAction<number>) => {
       state.amountReceived = action.payload;
-      state.amountToGiveBack = state.amountReceived - state.presentation.amount;
+      SetToGiveBack(state)
+      SetPresentation(state)
     },
   },
   extraReducers: builder => {
@@ -137,6 +144,7 @@ export const counterSlice = createSlice({
       const tokens = getTokens(action.payload)
       state.tokens = tokens;
       state.presentation.tokens = tokens.map(t => ({ ...t, count: 0 }))
+      SetToGiveBack(state)
       SetPresentation(state)
     })
     builder.addCase(data.rejected, (state) => {
@@ -147,6 +155,10 @@ export const counterSlice = createSlice({
     })
   }
 });
+
+function SetToGiveBack(state: CounterState) {
+  state.amountToGiveBack = state.amountReceived - state.presentation.amount;
+}
 
 function SetPresentation(state: CounterState) {
   const amountFunc = (actions: Action[]) => actions.reduce((prev: number, next: Action) => {
@@ -204,7 +216,7 @@ function SetPresentation(state: CounterState) {
   };
 }
 
-export const { addItem, addItemsByBatch, executeSelection, amountReceived: amountReceived, setModeTo, switchModeTo, reset, paymentMode, tokenMode, undo } = counterSlice.actions;
+export const { addItem, addItemsByBatch, executeSelection, resetAmountReceived, amountReceived, setModeTo, switchModeTo, resetSelection, paymentMode, tokenMode, undo } = counterSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
@@ -213,6 +225,7 @@ export const selectPresentationItems = (state: RootState) => state.counter.prese
 export const selectPresentationTokens = (state: RootState) => state.counter.presentation.tokens;
 export const selectPresentationMode = (state: RootState) => state.counter.presentationMode;
 export const selectPresentationAmount = (state: RootState) => state.counter.presentation.amount;
+export const selectPresentationAmountReceived = (state: RootState) => state.counter.amountReceived;
 export const selectAmountToGiveBack = (state: RootState) => state.counter.amountToGiveBack;
 export const selectTokenMode = (state: RootState) => state.counter.presentation.tokenMode;
 export const selectPresentation = (state: RootState) => state.counter.presentation;

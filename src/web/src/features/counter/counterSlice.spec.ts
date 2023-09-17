@@ -1,5 +1,5 @@
 import counterReducer, {
-  addItem, addItemsByBatch, executeSelection, setModeTo, Action, Token, initialState, undo, reset,
+  addItem, addItemsByBatch, executeSelection, setModeTo, Action, Token, initialState, undo, resetSelection,
 } from './counterSlice';
 
 const blueToken: Token = {
@@ -129,7 +129,7 @@ describe('counter reducer', () => {
 
   it('should reset all actions', () => {
     expect(initialStateWithSingleSelection.actions).toHaveLength(2)
-    const state = counterReducer(initialStateWithSingleSelection, reset());
+    const state = counterReducer(initialStateWithSingleSelection, resetSelection());
     expect(state.actions).toHaveLength(0)
   })
 });

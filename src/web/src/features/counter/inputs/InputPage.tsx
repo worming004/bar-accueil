@@ -3,7 +3,7 @@ import {
   selectPresentationItems,
   switchModeTo,
   undo,
-  reset,
+  resetSelection,
   selectTokenMode, ItemWithCount, FeatureFlag, selectFeatureFlag, paymentMode
 } from "../counterSlice";
 import { useAppSelector } from "../../../app/hooks";
@@ -13,7 +13,7 @@ import { Mode } from "fs";
 
 function Control(props: any) {
   const undoClick = () => store.dispatch(undo())
-  const resetClick = () => store.dispatch(reset())
+  const resetClick = () => store.dispatch(resetSelection())
   const paymentClick = () => store.dispatch(paymentMode())
   const switchModeToClick = () => store.dispatch(switchModeTo())
   const featureFlags: FeatureFlag = props.featureFlags;
@@ -37,7 +37,7 @@ function Control(props: any) {
   return (
     <>
       <button style={resetStyle} className={controlClasses} onClick={resetClick}>Reset</button>
-      <button style={resetStyle} className={controlClasses} onClick={paymentClick}>Payment</button>
+      <button style={resetStyle} className={controlClasses} onClick={paymentClick}>Paiement</button>
       {featureFlags?.showUndo ? <button style={resetStyle} className={controlClasses} onClick={undoClick}>Undo</button> : null}
       <button style={resetStyle} className={controlClasses} onClick={switchModeToClick}>
         <span style={plusStyle} className="m-4">+</span>
