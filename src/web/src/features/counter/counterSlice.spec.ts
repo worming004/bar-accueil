@@ -41,11 +41,12 @@ describe('counter reducer', () => {
         showUndo: false,
       },
       actions: [],
-      mode: "Add",
+      presentationMode: "Token",
+      tokenMode: "Add",
       tokens: [],
       presentation: {
         tokens: [],
-        mode: 'Add',
+        tokenMode: 'Add',
         items: [],
         amount: 0
       }
@@ -79,9 +80,9 @@ describe('counter reducer', () => {
 
   it('should should change mode', () => {
     const state = counterReducer(initialState, setModeTo('Subtract'));
-    expect(state.mode).toEqual('Subtract')
+    expect(state.tokenMode).toEqual('Subtract')
     const secondState = counterReducer(initialState, setModeTo('Add'));
-    expect(secondState.mode).toEqual('Add')
+    expect(secondState.tokenMode).toEqual('Add')
   })
 
   it('should decrease counter by item', () => {
@@ -92,11 +93,12 @@ describe('counter reducer', () => {
       featureFlag: {
         showUndo: false,
       },
-      mode: "Add",
+      presentationMode: "Token",
+      tokenMode: "Add",
       tokens: [...cocaItem.tokens],
       presentation: {
         tokens: [],
-        mode: 'Add',
+        tokenMode: 'Add',
         items: [],
         amount: 0
       }
