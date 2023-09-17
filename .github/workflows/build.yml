@@ -41,3 +41,23 @@ jobs:
       with:
         path: src/web/build/**
         if-no-files-found: error
+        name: bar
+
+    deploy:
+    name: deploy
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: bar
+          path: ./bar
+      - shell: bash
+        env:
+          SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}"
+        run: | 
+          echo -e "$SSH_PRIVATE_KEY" > __TEMP_INPUT_KEY_FILE
+          chmod 600 __TEMP_INPUT_KEY_FILE
+      - shell: bash
+        run: |
+          scp -o StrictHostKeyChecking=no -v -i __TEMP_INPUT_KEY_FILE -r ./bar/* "htmldeploy@dev.craftlabit.be:/var/www/html/bar"
