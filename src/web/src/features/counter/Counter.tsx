@@ -10,7 +10,7 @@ import { store } from '../../app/store';
 
 export function Counter() {
   const inputStyle = { maxWidth: "72%" }
-  const modalStyle = { content: { maxWidth: "65%" } }
+  const modalStyle = { content: { maxWidth: "65%" }, overlay: { backgroundColor: 'rgba(255, 255, 255, 0.30)' } }
   const outputStyle = { maxWidth: "28%" }
 
   const presentationMode = useAppSelector(selectPresentationMode);
