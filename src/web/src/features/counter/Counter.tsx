@@ -9,9 +9,9 @@ import { selectPresentationMode, tokenMode } from './counterSlice';
 import { store } from '../../app/store';
 
 export function Counter() {
-  const inputStyle = { maxWidth: "75%" }
+  const inputStyle = { maxWidth: "72%" }
   const modalStyle = { content: { maxWidth: "65%" } }
-  const outputStyle = { maxWidth: "25%" }
+  const outputStyle = { maxWidth: "28%" }
 
   const presentationMode = useAppSelector(selectPresentationMode);
   const toTokenModeClick = () => store.dispatch(tokenMode());

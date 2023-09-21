@@ -17,8 +17,8 @@ export function OutputPage() {
 function TokenPresentation(props: TokenWithCount) {
     const commonStyle = {
         fontSize: '35px',
-        width: "100px",
-        height: "100px",
+        width: "80px",
+        height: "80px",
         backgroundColor: GetTokenColor(props)
     }
     const roundStyle = {
