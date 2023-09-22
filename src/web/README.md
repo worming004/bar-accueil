@@ -56,3 +56,7 @@ scp -rp . worming@dev.craftlabit.be:/var/www/html/bar
 on raspberry pi:
 scp -r $(pwd) ubuntu@192.168.0.105:/var/www/html
 then move all files upper
+
+## galaxy tab s3 size
+
+768	x 1024
