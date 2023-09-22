@@ -106,7 +106,7 @@
     },
     {
       "name": "green",
-      "displayColor": "greenyellow",
+      "displayColor": "#32CD32",
       "shape": "round",
       "value": 2.5
     },
