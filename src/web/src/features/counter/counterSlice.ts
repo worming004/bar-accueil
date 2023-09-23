@@ -118,6 +118,7 @@ export const counterSlice = createSlice({
       state.actions = [];
       state.tokenMode = defaultMode
       SetPresentation(state);
+      SetToGiveBack(state)
     },
     resetAmountReceived: (state) => {
       state.amountReceived = 0;
