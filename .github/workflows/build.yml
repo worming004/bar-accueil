@@ -64,4 +64,4 @@ jobs:
           chmod 600 __TEMP_INPUT_KEY_FILE
       - shell: bash
         run: |
-          scp -o StrictHostKeyChecking=no -v -i __TEMP_INPUT_KEY_FILE -r ./bar/* "htmldeploy@dev.craftlabit.be:/var/www/html/bar"
+          scp -o StrictHostKeyChecking=no -i __TEMP_INPUT_KEY_FILE -r ./bar/* "${{ vars.SSH_USER }}@${{ vars.SERVER }}:${{ vars.SERVER_PATH }}"
