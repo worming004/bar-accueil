@@ -5,7 +5,7 @@ import { OutputPage } from "./outputs/OutputPage";
 import { ReturnPage } from './return/ReturnPage';
 import Modal from 'react-modal'
 import { useAppSelector } from '../../app/hooks';
-import { selectPresentationMode, tokenMode } from './counterSlice';
+import { selectPresentationItems, selectPresentationMode, tokenMode } from './counterSlice';
 import { store } from '../../app/store';
 
 export function Counter() {
@@ -14,6 +14,7 @@ export function Counter() {
   const outputStyle = { maxWidth: "28%" }
 
   const presentationMode = useAppSelector(selectPresentationMode);
+  const inputs = useAppSelector(selectPresentationItems).length;
   const toTokenModeClick = () => store.dispatch(tokenMode());
 
   return (
@@ -31,6 +32,11 @@ export function Counter() {
       <div style={outputStyle} >
         <OutputPage></OutputPage>
       </div>
+      {inputs === 0 ?
+        <div >
+          Si vous voyez ce message, c'est qu'un bug non résolu est apparu. Pour le résoudre, il vous suffit de connecter la tablette à internet via 4g, et de recharger la page. Pour recharger, faites un glissement de doigt de haut en bas.
+        </div>
+        : ''}
     </div>
   );
 }
