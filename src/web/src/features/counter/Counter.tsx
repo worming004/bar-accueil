@@ -34,7 +34,8 @@ export function Counter() {
       </div>
       {inputs === 0 ?
         <div >
-          Si vous voyez ce message, c'est qu'un bug non résolu est apparu. Pour le résoudre, il vous suffit de connecter la tablette à internet via 4g, et de recharger la page. Pour recharger, faites un glissement de doigt de haut en bas.
+          <p>Si vous voyez ce message, c'est qu'un bug non résolu est apparu. Pour le résoudre, il vous suffit de connecter la tablette à internet via 4g, fermer tous les onglets, et de ouvrez à nouveau la page bar.craftlabit.be.</p>
+          <p>Il est très important que TOUS les onglets soient fermés avant de relancer l'application.</p>
         </div>
         : ''}
     </div>
