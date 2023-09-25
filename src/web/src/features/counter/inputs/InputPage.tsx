@@ -67,7 +67,6 @@ function SingleButton(props: ItemWithCount, mode: Mode) {
 
   const squareSize = "108px";
   const cardStyle: any = {
-    // TODO: select color with specified property
     backgroundColor: GetItemColor(props),
     width: squareSize,
     height: squareSize,
