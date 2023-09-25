@@ -33,7 +33,6 @@ const initialStateWithSingleSelection = {
 }
 
 describe('counter reducer', () => {
-
   it('should handle initial state', () => {
     expect(counterReducer(undefined, { type: 'unknown' })).toEqual({
       actions: [],
@@ -80,15 +79,14 @@ describe('counter reducer', () => {
     expect(finalStep.presentation.amount).toEqual(cocaItem.tokens[0].value)
   })
 
-  it('should should change mode', () => {
+  it('should should toggle mode with Add and Substract', () => {
     const state = counterReducer(initialState, setModeTo('Subtract'));
     expect(state.tokenMode).toEqual('Subtract')
     const secondState = counterReducer(initialState, setModeTo('Add'));
     expect(secondState.tokenMode).toEqual('Add')
   })
 
-  it('should decrease counter by item', () => {
-
+  it('should decrease counter with Substract', () => {
     expect(initialStateWithSingleSelection).toEqual({
       items: [],
       actions: [selectionAddCoca, selectionAddCoca],
