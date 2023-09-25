@@ -1,0 +1,74 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Build and deploy demo
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+env:
+  WORKDIR: src/web/
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        cache-dependency-path: src/web/package-lock.json
+    - run: npm ci
+      working-directory: ${{env.WORKDIR}}
+    - run: npm run build --if-present
+      working-directory: ${{env.WORKDIR}}
+    - run: npm test
+      working-directory: ${{env.WORKDIR}}
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.1.0
+      with:
+        path: src/web/build/**
+        if-no-files-found: error
+        name: bar
+
+  deploy:
+    name: deploy
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name != 'pull_request'
+    steps:
+      - name: Add mask
+        run: |
+          echo "::add-mask::${{ vars.SSH_USER }}"
+          echo "::add-mask::${{ vars.SERVER }}"
+          echo "::add-mask::${{ vars.SERVER_PATH }}"
+      - uses: actions/download-artifact@v2
+        with:
+          name: bar
+          path: ./bar
+      - shell: bash
+        env:
+          SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}"
+        run: | 
+          echo -e "$SSH_PRIVATE_KEY" > __TEMP_INPUT_KEY_FILE
+          chmod 600 __TEMP_INPUT_KEY_FILE
+      - shell: bash
+        run: |
+          scp -o StrictHostKeyChecking=no -i __TEMP_INPUT_KEY_FILE -r ./bar/* "${{ vars.SSH_USER }}@${{ vars.SERVER }}:${{ vars.SERVER_PATH }}"
+          rm __TEMP_INPUT_KEY_FILE

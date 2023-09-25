@@ -1,0 +1,132 @@
+{
+  "items": [
+    {
+      "name": "WAPILS MAES 0%",
+      "tokenNames": [
+        "orange"
+      ]
+    },
+    {
+      "name": "SANS GLUTEN",
+      "tokenNames": [
+        "green"
+      ]
+    },
+    {
+      "name": "BLANCHE MYSTIC",
+      "tokenNames": [
+        "green"
+      ]
+    },
+    {
+      "name": "MOINETTE MOUSSE RASTA",
+      "tokenNames": [
+        "grey"
+      ]
+    },
+    {
+      "name": "BIERE TRAIL (Effort)",
+      "tokenNames": [
+        "grey"
+      ]
+    },
+    {
+      "name": "APERO",
+      "tokenNames": [
+        "green"
+      ]
+    },
+    {
+      "name": "BIERE BOUTEILLE",
+      "tokenNames": [
+        "grey",
+        "grey",
+        "grey"
+      ]
+    },
+    {
+      "name": "VIN AU VERRE",
+      "tokenNames": [
+        "orange"
+      ]
+    },
+    {
+      "name": "VIN BOUTEILLE",
+      "tokenNames": [
+        "grey",
+        "grey",
+        "grey",
+        "grey"
+      ]
+    },
+    {
+      "name": "COCA FANTA",
+      "tokenNames": [
+        "orange" 
+      ]
+    },
+    {
+      "name": "EAU, JUS GRENADINE CAFE",
+      "tokenNames": [
+        "orange"
+      ]
+    },
+    {
+      "name": "TARTE GAUFFRE GLACE",
+      "tokenNames": [
+        "grey"
+      ]
+    },
+    {
+      "name": "REPAS ADULTE",
+      "tokenNames": [
+        "adult card"
+      ]
+    },
+    {
+      "name": "REPAS ENFANT",
+      "tokenNames": [
+        "kid card"
+      ]
+    },
+    {
+      "name": "PAIN SAUCISSE",
+      "tokenNames": [
+        "green",
+        "green"
+      ]
+    }
+  ],
+  "tokens": [
+    {
+      "name": "orange",
+      "displayColor": "orange",
+      "shape": "round",
+      "value": 2
+    },
+    {
+      "name": "green",
+      "displayColor": "#32CD32",
+      "shape": "round",
+      "value": 2.5
+    },
+    {
+      "name": "grey",
+      "displayColor": "grey",
+      "shape": "round",
+      "value": 3
+    },
+    {
+      "name": "adult card",
+      "displayColor": "#2222f4",
+      "shape": "card",
+      "value": 14
+    },
+    {
+      "name": "kid card",
+      "displayColor": "#f42222",
+      "shape": "card",
+      "value": 10
+    }
+  ]
+}
