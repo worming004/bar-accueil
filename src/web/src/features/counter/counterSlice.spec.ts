@@ -1,6 +1,10 @@
 import counterReducer, {
-  addItem, addItemsByBatch, executeSelection, setModeTo, Action, Token, initialState, undo, resetSelection,
+  executeSelection, setModeTo, Action, Token, initialState, undo, resetSelection,
 } from './counterSlice';
+
+function addItem(item: any) {
+  return executeSelection(item);
+}
 
 const blueToken: Token = {
   name: 'blue',
@@ -32,11 +36,12 @@ const initialStateWithSingleSelection = {
   tokens: [...cocaItem.tokens]
 }
 
+const initialStateForTest = { ...initialState, tokens: [blueToken, redToken] };
+
 describe('counter reducer', () => {
   it('should handle initial state', () => {
     expect(counterReducer(undefined, { type: 'unknown' })).toEqual({
       actions: [],
-      items: [],
       featureFlag: {
         showUndo: false,
       },
@@ -45,6 +50,7 @@ describe('counter reducer', () => {
       presentationMode: "Token",
       tokenMode: "Add",
       tokens: [],
+      items: [],
       presentation: {
         tokens: [],
         tokenMode: 'Add',
@@ -55,28 +61,21 @@ describe('counter reducer', () => {
   });
 
   it('should handle adding item', () => {
-    const actual = counterReducer(initialState, addItem(cocaItem));
-    expect(actual.items.length).toEqual(1);
-    expect(actual.items[0]).toEqual(cocaItem);
-  });
-
-  it('should handle adding item by batch', () => {
-    const actual = counterReducer(initialState, addItemsByBatch([cocaItem, anotherDummyItem]));
-    expect(actual.items.length).toEqual(2);
-    expect(actual.items[0]).toEqual(cocaItem);
-    expect(actual.items[1]).toEqual(anotherDummyItem);
+    const actual = counterReducer(initialStateForTest, addItem(cocaItem));
+    expect(actual.actions.length).toEqual(1);
+    expect(actual.actions[0].item).toEqual(cocaItem);
   });
 
   it('should increase counter by item', () => {
     const intermediateState = counterReducer({ ...initialState, tokens: cocaItem.tokens }, addItem(cocaItem));
-    expect(intermediateState.actions.length).toEqual(0);
-    expect(intermediateState.presentation.amount).toEqual(0)
+    expect(intermediateState.actions.length).toEqual(1);
+    expect(intermediateState.presentation.amount).toEqual(1.10)
 
     const finalStep = counterReducer(intermediateState, executeSelection(cocaItem));
 
-    expect(finalStep.actions.length).toEqual(1);
-    expect(finalStep.actions[0]).toEqual({ item: cocaItem, operation: 'Add' });
-    expect(finalStep.presentation.amount).toEqual(cocaItem.tokens[0].value)
+    expect(finalStep.actions.length).toEqual(2);
+    expect(finalStep.actions[1]).toEqual({ item: cocaItem, operation: 'Add' });
+    expect(finalStep.presentation.amount).toEqual(cocaItem.tokens[0].value * 2)
   })
 
   it('should should toggle mode with Add and Substract', () => {

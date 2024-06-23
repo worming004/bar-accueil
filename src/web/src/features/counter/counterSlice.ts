@@ -81,14 +81,6 @@ export const counterSlice = createSlice({
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
-    addItem: (state, action: PayloadAction<Item>) => {
-      state.items.push(action.payload);
-      SetPresentation(state);
-    },
-    addItemsByBatch: (state, action: PayloadAction<Item[]>) => {
-      action.payload.forEach(it => state.items.push(it))
-      SetPresentation(state);
-    },
     executeSelection: (state, action: PayloadAction<Item>) => {
       state.actions.push({ item: action.payload, operation: state.tokenMode })
       SetPresentation(state);
@@ -217,7 +209,7 @@ function SetPresentation(state: CounterState) {
   };
 }
 
-export const { addItem, addItemsByBatch, executeSelection, resetAmountReceived, amountReceived, setModeTo, switchModeTo, resetSelection, paymentMode, tokenMode, undo } = counterSlice.actions;
+export const { executeSelection, resetAmountReceived, amountReceived, setModeTo, switchModeTo, resetSelection, paymentMode, tokenMode, undo } = counterSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
