@@ -84,7 +84,6 @@ export const counterSlice = createSlice({
     executeSelection: (state, action: PayloadAction<Item>) => {
       state.actions.push({ item: action.payload, operation: state.tokenMode })
       SetPresentation(state);
-      SetToGiveBack(state)
     },
     setModeTo: (state, action: PayloadAction<TokenMode>) => {
       state.tokenMode = action.payload;
@@ -100,7 +99,6 @@ export const counterSlice = createSlice({
           break;
       }
       SetPresentation(state);
-      SetToGiveBack(state)
     },
     undo: (state) => {
       state.actions.pop();
@@ -110,12 +108,10 @@ export const counterSlice = createSlice({
       state.actions = [];
       state.tokenMode = defaultMode
       SetPresentation(state);
-      SetToGiveBack(state)
     },
     resetAmountReceived: (state) => {
       state.amountReceived = 0;
       SetPresentation(state);
-      SetToGiveBack(state)
     },
     paymentMode: (state) => {
       state.presentationMode = 'Payment'
@@ -128,7 +124,6 @@ export const counterSlice = createSlice({
     amountReceived: (state, action: PayloadAction<number>) => {
       state.amountReceived = action.payload;
       SetPresentation(state)
-      SetToGiveBack(state)
     },
   },
   extraReducers: builder => {
@@ -207,6 +202,7 @@ function SetPresentation(state: CounterState) {
     tokenMode: state.tokenMode,
     tokens: tokensWithCount(state.tokens, state.actions)
   };
+  SetToGiveBack(state);
 }
 
 export const { executeSelection, resetAmountReceived, amountReceived, setModeTo, switchModeTo, resetSelection, paymentMode, tokenMode, undo } = counterSlice.actions;
