@@ -15,6 +15,12 @@ export function ReturnPage() {
   const retourColor = isWarning ? { color: "red" } : {};
 
   const toTokenModeClick = () => store.dispatch(tokenMode());
+  const executePaiementCash = () => {
+    resetAndToTokenMode()
+  }
+  const executePaiementElectronique = () => {
+    resetAndToTokenMode()
+  }
   const resetAndToTokenMode = () => {
     store.dispatch(resetSelection());
     store.dispatch(resetAmountReceived());
@@ -40,10 +46,10 @@ export function ReturnPage() {
       <br />
       <span className='text-4xl'>Retour: </span>
       <div><span className='text-4xl' style={retourColor}>{toGiveBack.toFixed(2)}€</span></div>
-      <button className={controlClasses} style={style} onClick={() => { resetAndToTokenMode() }}>Valider le paiement</button>
+      <button className={controlClasses} style={style} onClick={() => { executePaiementCash() }}>Valider le paiement</button>
+      <button className={controlClasses} style={style} onClick={() => { executePaiementElectronique() }}>Paiement electronique</button>
       <button className={controlClasses} style={style} onClick={() => { toTokenModeClick() }}>Modifier la commande</button>
     </>
   )
 }
-
 

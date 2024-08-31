@@ -23,10 +23,6 @@ const cocaItem = {
   name: 'coca',
   tokens: [blueToken]
 }
-const anotherDummyItem = {
-  name: 'beer',
-  tokens: [redToken]
-};
 
 const selectionAddCoca: Action = { item: cocaItem, operation: 'Add' }
 
