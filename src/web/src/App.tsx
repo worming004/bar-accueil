@@ -1,17 +1,22 @@
-import React from 'react';
-import {Counter} from './features/counter/Counter';
-import {store} from "./app/store";
+import { Counter } from './features/counter/Counter';
+import { store } from "./app/store";
 import './App.css';
-import {data} from "./features/counter/fillStoreFromJson";
+import { data } from "./features/counter/fillStoreFromJson";
+import { useAppSelector } from './app/hooks';
+import { selectUserIsAuthenticated } from './features/counter/counterSlice';
+import HeaderApp from './features/header/headerApp';
 
 function App() {
-    store.dispatch(data())
+  store.dispatch(data())
 
-    return (
-        <div className="App">
-            <Counter/>
-        </div>
-    );
+  const userIsAuthenticated = useAppSelector(selectUserIsAuthenticated);
+
+  return (
+    <div className="App">
+      <HeaderApp userIsAuthenticated={userIsAuthenticated}></HeaderApp>
+      <Counter />
+    </div>
+  );
 }
 
 export default App;

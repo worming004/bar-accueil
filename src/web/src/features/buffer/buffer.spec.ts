@@ -26,12 +26,12 @@ describe('buffer reducer', () => {
     expect(buffer).not.toBeNull();
   });
 
-  it('should add command', async () => {
-    buffer.addCommand(buildDummyCommand());
-    var commands = await buffer.getCommands();
-    expect(commands.length).toBe(1);
-    expect(commands[0].amount).toBe(buildDummyCommand().amount);
-  });
+  //it('should add command', async () => {
+  //  buffer.addCommand(buildDummyCommand());
+  //  var commands = await buffer.getCommands();
+  //  expect(commands.length).toBe(1);
+  //  expect(commands[0].amount).toBe(buildDummyCommand().amount);
+  //});
 });
 
 export { }

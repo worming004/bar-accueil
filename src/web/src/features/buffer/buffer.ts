@@ -27,16 +27,16 @@ export class Buffer {
     transaction?.commit();
   }
 
-  async getCommands(): Promise<Command[]> {
-    if (this.indexedDB === null) {
-      return [];
-    }
-    const commands: Command[] = [];
-    const transaction = this.indexedDB.transaction("commands", "readonly");
-    const objectStore = transaction.objectStore("commands");
-    const cmds = objectStore.getAll();
-    await transaction.done;
-  }
+  //async getCommands(): Promise<Command[]> {
+  //  if (this.indexedDB === null) {
+  //    return [];
+  //  }
+  //  const commands: Command[] = [];
+  //  const transaction = this.indexedDB.transaction("commands", "readonly");
+  //  const objectStore = transaction.objectStore("commands");
+  //  const cmds = objectStore.getAll();
+  //  await transaction.done;
+  //}
 
   //getCommands(): Command[] {
   //  if (this.indexedDB === null) {

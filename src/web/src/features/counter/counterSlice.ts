@@ -6,7 +6,12 @@ import { aggregateValues } from "../tokens";
 type TokenMode = 'Add' | 'Subtract'
 type PresentationMode = 'Token' | 'Payment'
 
-export interface CounterState {
+export interface BackendState {
+  userIsAuthenticated: boolean,
+}
+
+export interface AppState {
+  backend: BackendState,
   actions: Action[],
   items: Item[],
   tokens: Token[],
@@ -57,7 +62,8 @@ export interface Presentation {
 
 const defaultMode: TokenMode = 'Add'
 
-export const initialState: CounterState = {
+export const initialState: AppState = {
+  backend: { userIsAuthenticated: false },
   actions: [],
   items: [],
   tokens: [],
@@ -149,11 +155,11 @@ export const counterSlice = createSlice({
   }
 });
 
-function SetToGiveBack(state: CounterState) {
+function SetToGiveBack(state: AppState) {
   state.amountToGiveBack = state.amountReceived - state.presentation.amount;
 }
 
-function SetPresentation(state: CounterState) {
+function SetPresentation(state: AppState) {
   const amountFunc = (actions: Action[]) => actions.reduce((prev: number, next: Action) => {
     switch (next.operation) {
       case "Add":
@@ -210,6 +216,8 @@ function SetPresentation(state: CounterState) {
 }
 
 export const { executeSelection, resetAmountReceived, amountReceived, setModeTo, switchModeTo, resetSelection, paymentMode, tokenMode, undo } = counterSlice.actions;
+
+export const selectUserIsAuthenticated = (state: RootState) => state.counter.backend.userIsAuthenticated;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
