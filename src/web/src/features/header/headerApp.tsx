@@ -1,18 +1,25 @@
+import { useState } from "react";
+import PocketBase from 'pocketbase';
+
+const pb = new PocketBase('https://pocketbase.bar.craftlabit.be');
+//const pb = new PocketBase('http://localhost:8090');
+
 function HeaderApp(props: { userIsAuthenticated: boolean }) {
 
-  function handleLogin(formData: FormData) {
-    formData.preventDefault();
-    const target = formData.target as any;
-    const password = target.password.value;
-    alert(password);
+  const [password, setPassword] = useState('');
+  async function handleLogin() {
+    const { token, record } = await pb.collection('users').authWithPassword("bar", password);
+    alert(token);
+  }
+
+  function handlePasswordValue(e: React.ChangeEvent<HTMLInputElement>) {
+    setPassword(e.target.value)
   }
   return (
     <div>
       <h1>User is authenticated: {props.userIsAuthenticated}</h1>
-      <form action={handleLogin}>
-        <input type="password" name="password" />
-        <button type="submit">Login</button>
-      </form>
+      <input type="password" name="password" onChange={handlePasswordValue} />
+      <button onClick={handleLogin}>Login</button>
     </div>
   );
 }
