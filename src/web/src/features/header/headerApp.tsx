@@ -13,7 +13,7 @@ function HeaderApp(props: any) {
 
   const [password, setPassword] = useState('');
   async function handleLogin() {
-    const { token, record } = await pb.collection('users').authWithPassword("bar", password);
+    const { token } = await pb.collection('users').authWithPassword("bar", password);
     store.dispatch(authenticate(token));
   }
 
