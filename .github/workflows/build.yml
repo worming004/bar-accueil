@@ -9,6 +9,7 @@ on:
     paths: [ "src/web/**" ]
   pull_request:
     branches: [ "master" ]
+  workflow_dispatch:
 
 env:
   WORKDIR: src/web/
