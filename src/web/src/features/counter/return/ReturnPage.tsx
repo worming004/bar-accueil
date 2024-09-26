@@ -57,7 +57,7 @@ export function ReturnPage() {
       <br />
       <span className='text-4xl'>Retour: </span>
       <div><span className='text-4xl' style={retourColor}>{toGiveBack.toFixed(2)}€</span></div>
-      <button className={controlClasses} style={style} onClick={() => { executePaiementCash() }}>Valider le paiement</button>
+      <button className={controlClasses} style={style} onClick={() => { executePaiementCash() }}>Valider le paiement cash</button>
       <button className={controlClasses} style={style} onClick={() => { executePaiementElectronique() }}>Paiement electronique</button>
       <button className={controlClasses} style={style} onClick={() => { toTokenModeClick() }}>Modifier la commande</button>
     </>
