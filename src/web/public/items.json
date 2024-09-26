@@ -1,93 +1,142 @@
 {
   "items": [
     {
-      "name": "SANS GLUTEN",
-      "tokenNames": [
-        "green"
-      ]
-    },
-    {
-      "name": "BLANCHE MYSTIC",
-      "tokenNames": [
-        "green"
-      ]
-    },
-    {
-      "name": "MOINETTE MOUSSE RASTA",
-      "tokenNames": [
-        "grey"
-      ]
-    },
-    {
-      "name": "BIERE TRAIL (Effort)",
-      "tokenNames": [
-        "grey"
-      ]
-    },
-    {
-      "name": "APERO",
-      "tokenNames": [
-        "green"
-      ]
-    },
-    {
-      "name": "BIERE BOUTEILLE",
-      "tokenNames": [
-        "grey",
-        "grey",
-        "grey"
-      ]
-    },
-    {
-      "name": "VIN AU VERRE",
+      "name": "Wapils",
       "tokenNames": [
         "orange"
       ]
     },
     {
-      "name": "VIN BOUTEILLE",
-      "tokenNames": [
-        "grey",
-        "grey",
-        "grey",
-        "grey"
-      ]
-    },
-    {
-      "name": "COCA FANTA",
-      "tokenNames": [
-        "orange" 
-      ]
-    },
-    {
-      "name": "EAU, JUS GRENADINE CAFE",
+      "name": "Maes 0%",
       "tokenNames": [
         "orange"
       ]
     },
     {
-      "name": "TARTE GAUFFRE GLACE",
+      "name": "Bière sans gluten",
+      "tokenNames": [
+        "orange"
+      ]
+    },
+    {
+      "name": "Blanche",
+      "tokenNames": [
+        "green"
+      ]
+    },
+    {
+      "name": "Mystic",
+      "tokenNames": [
+        "green"
+      ]
+    },
+    {
+      "name": "Bouffée verte (rasta moine)",
       "tokenNames": [
         "grey"
       ]
     },
     {
-      "name": "REPAS ADULTE",
+      "name": "Après l'effort (bière du trail)",
       "tokenNames": [
-        "adult card"
+        "grey"
       ]
     },
     {
-      "name": "REPAS ENFANT",
+      "name": "Moinette",
       "tokenNames": [
-        "kid card"
+        "grey"
       ]
     },
     {
-      "name": "PAIN SAUCISSE",
+      "name": "Apéro maison",
       "tokenNames": [
-        "green",
         "green"
+      ]
+    },
+    {
+      "name": "Verre vin rosé",
+      "tokenNames": [
+        "orange"
+      ]
+    },
+    {
+      "name": "Verre vin rouge",
+      "tokenNames": [
+        "orange"
+      ]
+    },
+    {
+      "name": "Eau, grenadine",
+      "tokenNames": [
+        "orange"
+      ]
+    },
+    {
+      "name": "Coca",
+      "tokenNames": [
+        "orange"
+      ]
+    },
+    {
+      "name": "Fanta",
+      "tokenNames": [
+        "orange"
+      ]
+    },
+    {
+      "name": "Jus de pomme",
+      "tokenNames": [
+        "orange"
+      ]
+    },
+    {
+      "name": "Café",
+      "tokenNames": [
+        "orange"
+      ]
+    },
+    {
+      "name": "Bouteille moinette",
+      "tokenNames": [
+        "grey",
+        "grey",
+        "grey"
+      ]
+    },
+    {
+      "name": "Bouteille vin",
+      "tokenNames": [
+        "grey",
+        "grey",
+        "grey",
+        "grey"
+      ]
+    },
+    {
+      "name": "Morceau de tarte",
+      "tokenNames": [
+        "grey"
+      ]
+    },
+    {
+      "name": "Gaufre",
+      "tokenNames": [
+        "grey"
+      ]
+    },
+    {
+      "name": "Glace",
+      "tokenNames": [
+        "grey"
+      ]
+    },
+    {
+      "name": "Pâtes",
+      "tokenNames": [
+        "orange",
+        "orange",
+        "grey"
       ]
     }
   ],
@@ -114,13 +163,13 @@
       "name": "adult card",
       "displayColor": "#2222f4",
       "shape": "card",
-      "value": 14
+      "value": 16
     },
     {
       "name": "kid card",
       "displayColor": "#f42222",
       "shape": "card",
-      "value": 10
+      "value": 14
     }
   ]
 }
