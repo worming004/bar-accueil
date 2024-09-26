@@ -37,6 +37,7 @@ const initialStateForTest = { ...initialState, tokens: [blueToken, redToken] };
 describe('counter reducer', () => {
   it('should handle initial state', () => {
     expect(counterReducer(undefined, { type: 'unknown' })).toEqual({
+      backend: { userIsAuthenticated: false, token: '' },
       actions: [],
       featureFlag: {
         showUndo: false,
@@ -83,6 +84,7 @@ describe('counter reducer', () => {
 
   it('should decrease counter with Substract', () => {
     expect(initialStateWithSingleSelection).toEqual({
+      backend: { userIsAuthenticated: false, token: '' },
       items: [],
       actions: [selectionAddCoca, selectionAddCoca],
       featureFlag: {
