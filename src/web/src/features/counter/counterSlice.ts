@@ -27,6 +27,7 @@ export interface AppState {
 
 export interface FeatureFlag {
   showUndo?: boolean
+  useBackend?: boolean
 }
 
 export interface Action {
@@ -70,6 +71,7 @@ export const initialState: AppState = {
   tokens: [],
   featureFlag: {
     showUndo: false,
+    useBackend: true,
   },
   tokenMode: defaultMode,
   presentationMode: 'Token',
@@ -236,6 +238,7 @@ export const selectAmountToGiveBack = (state: RootState) => state.counter.amount
 export const selectTokenMode = (state: RootState) => state.counter.presentation.tokenMode;
 export const selectPresentation = (state: RootState) => state.counter.presentation;
 export const selectFeatureFlag = (state: RootState) => state.counter.featureFlag;
+export const selectItemWithCount = (state: RootState) => state.counter.presentation.items;
 
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.

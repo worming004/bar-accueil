@@ -1,9 +1,14 @@
 import { KeyboardEvent } from "react";
 import { useAppSelector } from "../../../app/hooks";
 import { store } from "../../../app/store";
-import { resetSelection, selectPresentationAmount, tokenMode, amountReceived, selectAmountToGiveBack, selectPresentationAmountReceived, resetAmountReceived } from "../counterSlice";
+import { getBufferByEnv } from "../../buffer/buffer";
+import { buildCash, buildElectronique } from "../../buffer/command";
+import { resetSelection, selectPresentationAmount, tokenMode, amountReceived, selectAmountToGiveBack, selectPresentationAmountReceived, resetAmountReceived, selectFeatureFlag, selectItemWithCount } from "../counterSlice";
 
 export function ReturnPage() {
+  const items = useAppSelector(selectItemWithCount);
+  const featureFlags = useAppSelector(selectFeatureFlag)
+  const buffer = getBufferByEnv();
   const amountToPay = useAppSelector(selectPresentationAmount);
   const amountReceivedValue = useAppSelector(selectPresentationAmountReceived);
   const toGiveBack = useAppSelector(selectAmountToGiveBack)
@@ -16,9 +21,15 @@ export function ReturnPage() {
 
   const toTokenModeClick = () => store.dispatch(tokenMode());
   const executePaiementCash = () => {
+    if (featureFlags?.useBackend) {
+      buffer.addCommand(buildCash(items, amountReceivedValue, toGiveBack, amountToPay));
+    }
     resetAndToTokenMode()
   }
   const executePaiementElectronique = () => {
+    if (featureFlags?.useBackend) {
+      buffer.addCommand(buildElectronique(items, amountToPay));
+    }
     resetAndToTokenMode()
   }
   const resetAndToTokenMode = () => {

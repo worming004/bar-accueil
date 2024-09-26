@@ -3,6 +3,7 @@ import PocketBase from "pocketbase";
 import { store } from "../../app/store";
 import { authenticate, logoff, selectUserIsAuthenticated } from "../counter/counterSlice";
 import { useAppSelector } from "../../app/hooks";
+import { getBufferByEnv } from "../buffer/buffer";
 
 const pb = new PocketBase('https://pocketbase.bar.craftlabit.be');
 //const pb = new PocketBase('http://localhost:8090');
@@ -16,6 +17,8 @@ function HeaderApp(props: any) {
     try {
       const { token } = await pb.collection('users').authWithPassword("bar", password);
       store.dispatch(authenticate(token));
+      const buffer = getBufferByEnv();
+      buffer.setToken(token);
     } catch (e) {
       alert("Login failed")
     }

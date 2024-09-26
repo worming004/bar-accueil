@@ -1,79 +1,110 @@
+import PocketBase from "pocketbase";
 import { Command } from "./command";
 
 export class Buffer {
-  private indexedDB: IDBDatabase | null = null;
+  public static instance: Buffer = new Buffer("Production");
+  public static getInstance(): Buffer {
+    if (Buffer.instance === null) {
+      Buffer.instance = new Buffer("Production");
+    }
+    return Buffer.instance;
+  }
+  private token: string | undefined;
+  private dbName: string = "Production";
 
   constructor(dbName: string) {
     const dbReq = indexedDB.open(dbName, 1);
-    dbReq.onupgradeneeded = (event) => {
-      if (event.target !== null) {
-        this.indexedDB = (event.target as IDBOpenDBRequest).result;
-      }
+    dbReq.onupgradeneeded = (_event: Event) => {
+      const db = dbReq.result;
+      db.createObjectStore("commands", { keyPath: "id", autoIncrement: true });
     }
-    dbReq.onsuccess = (_) => {
-      this.indexedDB = dbReq.result;
-    };
+
+    setInterval(() => { this.tryUpload() }, 15000);
   };
 
-
-
   addCommand(command: Command) {
-    const transaction = this.indexedDB?.transaction("commands", "readwrite")
-    if (transaction === null) {
-      throw "No trx";
-
-    }
-    transaction?.objectStore("commands").add(command);
-    transaction?.commit();
+    const dbReq = indexedDB.open(this.dbName, 1);
+    dbReq.onsuccess = (_event: Event) => {
+      const db = dbReq.result;
+      const transaction = db.transaction("commands", "readwrite")
+      if (transaction === null) {
+        throw "No trx";
+      }
+      const request = transaction?.objectStore("commands").add(command);
+      request.onerror = function() {
+        console.log("Error", request.error);
+      };
+      transaction?.commit();
+    };
   }
 
-  //async getCommands(): Promise<Command[]> {
-  //  if (this.indexedDB === null) {
-  //    return [];
-  //  }
-  //  const commands: Command[] = [];
-  //  const transaction = this.indexedDB.transaction("commands", "readonly");
-  //  const objectStore = transaction.objectStore("commands");
-  //  const cmds = objectStore.getAll();
-  //  await transaction.done;
-  //}
+  setToken(token: string) {
+    console.log('set token');
+    this.token = token;
+  }
 
-  //getCommands(): Command[] {
-  //  if (this.indexedDB === null) {
-  //    return [];
-  //  }
-  //  const commands: Command[] = [];
-  //  const transaction = this.indexedDB?.transaction("commands", "readonly")
-  //  const cursorReq = transaction.objectStore("commands").openCursor();
-  //  cursorReq.onsuccess = (event) => {
-  //    const cursor = (event.target as IDBRequest).result;
-  //    if (cursor) {
-  //      commands.push(cursor.value);
-  //      cursor.continue();
-  //    }
-  //  }
-  //
-  //  return commands;
-  //}
+  private tryUpload() {
+    console.log("start tryUpload");
+    if (this.token === undefined) {
+      console.log("No auth token, stop tryUpload");
+      return;
+    }
+
+    const dbReq = indexedDB.open(this.dbName, 1);
+    dbReq.onsuccess = (_event: Event) => {
+      const db = dbReq.result;
+      const transaction = db.transaction("commands", "readonly")
+      if (transaction === null) {
+        throw "No trx";
+      }
+
+      const toSend = transaction.objectStore("commands").getAll();
+      toSend.onsuccess = function() {
+        try {
+          const pb = new PocketBase('https://pocketbase.bar.craftlabit.be');
+          console.log("try to send " + toSend.result.length.toString() + " number of command");
+          toSend.result.forEach((command: Command) => {
+            const data = { data: JSON.stringify(command) };
+
+            try {
+              const prom = pb.collection("paiement").create(data, { requestKey: null });
+              prom.then(() => {
+                if (command.id === undefined) {
+                  return
+                }
+                db.transaction("commands", "readwrite").objectStore("commands").delete(command.id);
+              }).catch(e => {
+                console.log('error while upload');
+              })
+
+            } catch (e) {
+
+              console.log("error while upload command");
+            }
+          });
+        } catch (e) {
+          console.log("error while creating new client");
+        }
+      }
+    };
+  }
 
   destroy_onlyfortest() {
 
   }
 }
 
-let singletonBuffer = new Buffer("Production");
-
 let idForTest = 0;
 
 export function getBufferByEnv(): Buffer {
   const env = process.env.ENVIRONMENT
   switch (env) {
-    case "PRODUCTION":
-      return singletonBuffer;
     case "TEST":
-    default:
-      idForTest++;
+      idForTest++
       return new Buffer(idForTest.toString());
+    default:
+    case "PRODUCTION":
+      return Buffer.getInstance()
   }
 }
 

@@ -7,9 +7,7 @@ function buildDummyCommand(): Command {
   return buildElectronique([{
     count: 2,
     name: "orange",
-    displayColor: "orange",
-    shape: "round",
-    value: 2
+    tokens: []
   }], 4);
 }
 
