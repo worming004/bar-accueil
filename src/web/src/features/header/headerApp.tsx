@@ -1,15 +1,20 @@
 import { useEffect, useState } from "react";
 import PocketBase from 'pocketbase';
+import { store } from "../../app/store";
+import { authenticate, logoff, selectUserIsAuthenticated } from "../counter/counterSlice";
+import { useAppSelector } from "../../app/hooks";
 
 const pb = new PocketBase('https://pocketbase.bar.craftlabit.be');
 //const pb = new PocketBase('http://localhost:8090');
 
-function HeaderApp(props: { userIsAuthenticated: boolean }) {
+function HeaderApp(props: any) {
+
+  const userIsAuthenticated = useAppSelector(selectUserIsAuthenticated);
 
   const [password, setPassword] = useState('');
   async function handleLogin() {
     const { token, record } = await pb.collection('users').authWithPassword("bar", password);
-    alert(token);
+    store.dispatch(authenticate(token));
   }
 
   function handlePasswordValue(e: React.ChangeEvent<HTMLInputElement>) {
@@ -20,8 +25,9 @@ function HeaderApp(props: { userIsAuthenticated: boolean }) {
   const [timeRemaining, setTimeRemaining] = useState(25); // 25 seconds timer
   const [timerActive, setTimerActive] = useState(false);
   const onTwentyClicks = () => {
-    alert('You clicked 20 times in 25 seconds!');
-    // Reset click count and timer
+    alert('You clicked 20 times in 25 seconds! This is hidden command for logout');
+    // set
+    store.dispatch(logoff());
     setClickCount(0);
     setTimerActive(false);
     setTimeRemaining(25);
@@ -59,13 +65,21 @@ function HeaderApp(props: { userIsAuthenticated: boolean }) {
     }
   }, [clickCount]);
 
-  return (
-    <div>
-      <h1 onClick={handleClick} >User is authenticated: {props.userIsAuthenticated}</h1>
+  const authStyle = { fontSize: 'x-small' }
+
+  const authText = userIsAuthenticated ? <h5 onClick={handleClick} style={authStyle}> User is authenticated</h5> :
+    <>
       <input type="password" name="password" onChange={handlePasswordValue} />
       <button onClick={handleLogin}>Login</button>
+    </>
+
+
+  return (
+    <div>
+      {authText}
     </div>
   );
 }
 
 export default HeaderApp;
+

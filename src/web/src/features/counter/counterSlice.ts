@@ -8,6 +8,7 @@ type PresentationMode = 'Token' | 'Payment'
 
 export interface BackendState {
   userIsAuthenticated: boolean,
+  token: string
 }
 
 export interface AppState {
@@ -63,7 +64,7 @@ export interface Presentation {
 const defaultMode: TokenMode = 'Add'
 
 export const initialState: AppState = {
-  backend: { userIsAuthenticated: false },
+  backend: { userIsAuthenticated: false, token: '' },
   actions: [],
   items: [],
   tokens: [],
@@ -87,6 +88,14 @@ export const counterSlice = createSlice({
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
+    authenticate: (state, action: PayloadAction<string>) => {
+      state.backend.token = action.payload;
+      state.backend.userIsAuthenticated = true;
+    },
+    logoff: (state) => {
+      state.backend.token = '';
+      state.backend.userIsAuthenticated = false;
+    },
     executeSelection: (state, action: PayloadAction<Item>) => {
       state.actions.push({ item: action.payload, operation: state.tokenMode })
       SetPresentation(state);
@@ -211,7 +220,7 @@ function SetPresentation(state: AppState) {
   SetToGiveBack(state);
 }
 
-export const { executeSelection, resetAmountReceived, amountReceived, setModeTo, switchModeTo, resetSelection, paymentMode, tokenMode, undo } = counterSlice.actions;
+export const { authenticate, logoff, executeSelection, resetAmountReceived, amountReceived, setModeTo, switchModeTo, resetSelection, paymentMode, tokenMode, undo } = counterSlice.actions;
 
 export const selectUserIsAuthenticated = (state: RootState) => state.counter.backend.userIsAuthenticated;
 
