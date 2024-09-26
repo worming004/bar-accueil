@@ -13,8 +13,12 @@ function HeaderApp(props: any) {
 
   const [password, setPassword] = useState('');
   async function handleLogin() {
-    const { token } = await pb.collection('users').authWithPassword("bar", password);
-    store.dispatch(authenticate(token));
+    try {
+      const { token } = await pb.collection('users').authWithPassword("bar", password);
+      store.dispatch(authenticate(token));
+    } catch (e) {
+      alert("Login failed")
+    }
   }
 
   function handlePasswordValue(e: React.ChangeEvent<HTMLInputElement>) {
@@ -66,10 +70,11 @@ function HeaderApp(props: any) {
   }, [clickCount]);
 
   const authStyle = { fontSize: 'x-small' }
+  const passwordStyle = { border: '1px solid black' }
 
   const authText = userIsAuthenticated ? <h5 onClick={handleClick} style={authStyle}> User is authenticated</h5> :
     <>
-      <input type="password" name="password" onChange={handlePasswordValue} />
+      <input type="password" name="password" onChange={handlePasswordValue} style={passwordStyle} />
       <button onClick={handleLogin}>Login</button>
     </>
 
