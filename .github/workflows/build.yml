@@ -59,7 +59,7 @@ jobs:
           echo "::add-mask::${{ vars.SSH_USER }}"
           echo "::add-mask::${{ vars.SERVER }}"
           echo "::add-mask::${{ vars.SERVER_PATH }}"
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4
         with:
           name: bar
           path: ./bar
