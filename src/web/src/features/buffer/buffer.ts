@@ -28,7 +28,7 @@ export class Buffer {
       const db = dbReq.result;
       const transaction = db.transaction("commands", "readwrite")
       if (transaction === null) {
-        throw "No trx";
+        throw new Error("No trx");
       }
       const request = transaction?.objectStore("commands").add(command);
       request.onerror = function() {
@@ -55,7 +55,7 @@ export class Buffer {
       const db = dbReq.result;
       const transaction = db.transaction("commands", "readonly")
       if (transaction === null) {
-        throw "No trx";
+        throw new Error("No trx");
       }
 
       const toSend = transaction.objectStore("commands").getAll();
