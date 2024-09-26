@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PocketBase from 'pocketbase';
 
 const pb = new PocketBase('https://pocketbase.bar.craftlabit.be');
@@ -15,9 +15,53 @@ function HeaderApp(props: { userIsAuthenticated: boolean }) {
   function handlePasswordValue(e: React.ChangeEvent<HTMLInputElement>) {
     setPassword(e.target.value)
   }
+
+  const [clickCount, setClickCount] = useState(0);
+  const [timeRemaining, setTimeRemaining] = useState(25); // 25 seconds timer
+  const [timerActive, setTimerActive] = useState(false);
+  const onTwentyClicks = () => {
+    alert('You clicked 20 times in 25 seconds!');
+    // Reset click count and timer
+    setClickCount(0);
+    setTimerActive(false);
+    setTimeRemaining(25);
+  };
+
+  const handleClick = () => {
+    if (!timerActive) {
+      setTimerActive(true); // Start timer on first click
+    }
+    setClickCount((prevCount) => prevCount + 1);
+  };
+
+  useEffect(() => {
+    let timer: NodeJS.Timer | undefined;
+    if (timerActive && timeRemaining > 0) {
+      timer = setInterval(() => {
+        setTimeRemaining((prevTime) => prevTime - 1);
+      }, 1000);
+    }
+
+    // Reset if time is over
+    if (timeRemaining === 0) {
+      setClickCount(0);
+      setTimerActive(false);
+      setTimeRemaining(25);
+    }
+
+    // Cleanup the interval on unmount or when the timer stops
+    return () => clearInterval(timer);
+  }, [timerActive, timeRemaining]);
+
+  useEffect(() => {
+    if (clickCount === 20) {
+      onTwentyClicks();
+    }
+  }, [clickCount]);
+
   return (
     <div>
-      <h1>User is authenticated: {props.userIsAuthenticated}</h1>
+      <h1 onClick={handleClick} >User is authenticated: {props.userIsAuthenticated}</h1>
       <input type="password" name="password" onChange={handlePasswordValue} />
       <button onClick={handleLogin}>Login</button>
     </div>
