@@ -43,7 +43,7 @@ jobs:
     - run: npm test
       working-directory: ${{env.WORKDIR}}
     - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v3.1.0
+      uses: actions/upload-artifact@v4
       with:
         path: src/web/build/**
         if-no-files-found: error
