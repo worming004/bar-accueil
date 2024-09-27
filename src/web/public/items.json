@@ -173,13 +173,13 @@
     },
     {
       "name": "adult card",
-      "displayColor": "#2222f4",
+      "displayColor": "#fc0303",
       "shape": "card",
       "value": 16
     },
     {
       "name": "kid card",
-      "displayColor": "#f42222",
+      "displayColor": "#fc8003",
       "shape": "card",
       "value": 14
     }
