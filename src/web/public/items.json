@@ -150,6 +150,24 @@
       "tokenNames": [
         "kid card"
       ]
+    },
+    {
+      "name": "Jeton orange",
+      "tokenNames": [
+        "orange"
+      ]
+    },
+    {
+      "name": "Jeton vert",
+      "tokenNames": [
+        "green"
+      ]
+    },
+    {
+      "name": "Jeton gris",
+      "tokenNames": [
+        "grey"
+      ]
     }
   ],
   "tokens": [
