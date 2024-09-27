@@ -155,19 +155,55 @@
       "name": "Jeton orange",
       "tokenNames": [
         "orange"
-      ]
+      ],
+      "size": "demi"
     },
     {
       "name": "Jeton vert",
       "tokenNames": [
         "green"
-      ]
+      ],
+      "size": "demi"
     },
     {
       "name": "Jeton gris",
       "tokenNames": [
         "grey"
-      ]
+      ],
+      "size": "demi"
+    },
+    {
+      "name": "5 Jetons orange",
+      "tokenNames": [
+        "orange",
+        "orange",
+        "orange",
+        "orange",
+        "orange"
+      ],
+      "size": "demi"
+    },
+    {
+      "name": "5 Jetons vert",
+      "tokenNames": [
+        "green",
+        "green",
+        "green",
+        "green",
+        "green"
+      ],
+      "size": "demi"
+    },
+    {
+      "name": "5 Jetons gris",
+      "tokenNames": [
+        "grey",
+        "grey",
+        "grey",
+        "grey",
+        "grey"
+      ],
+      "size": "demi"
     }
   ],
   "tokens": [

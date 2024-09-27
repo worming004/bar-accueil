@@ -65,11 +65,12 @@ export function InputPage() {
 function SingleButton(props: ItemWithCount, mode: Mode) {
   const dispatchItem = () => store.dispatch(executeSelection(props))
 
-  const squareSize = "108px";
+  const widthSquareSize = props.size === "demi" ? "54px" : "108px";
+  const heightSquareSize = "108px";
   const cardStyle: any = {
     backgroundColor: GetItemColor(props),
-    width: squareSize,
-    height: squareSize,
+    width: widthSquareSize,
+    height: heightSquareSize,
     margin: "18px",
     padding: "5px",
     position: 'relative' as 'relative'

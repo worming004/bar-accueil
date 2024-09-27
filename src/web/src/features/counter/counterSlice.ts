@@ -38,6 +38,7 @@ export interface Action {
 export interface Item {
   name: string,
   tokens: Token[]
+  size?: string
 }
 
 export interface Token {
