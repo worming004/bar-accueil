@@ -138,6 +138,18 @@
         "orange",
         "grey"
       ]
+    },
+    {
+      "name": "Repas adulte",
+      "tokenNames": [
+        "adult card"
+      ]
+    },
+    {
+      "name": "Repas enfant",
+      "tokenNames": [
+        "kid card"
+      ]
     }
   ],
   "tokens": [
