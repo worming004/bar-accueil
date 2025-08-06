@@ -18,6 +18,7 @@ export function buildElectronique(itemWithCount: ItemWithCount[], amount: number
     cashReceived: 0,
     cashToGiveBack: 0,
     amount,
+    orderDate: new Date(),
   }
   removeEmptyItems(cmd);
   return cmd;
@@ -30,6 +31,7 @@ export function buildCash(itemWithCount: ItemWithCount[], cashReceived: number, 
     cashReceived,
     cashToGiveBack,
     amount,
+    orderDate: new Date(),
   }
   removeEmptyItems(cmd);
   return cmd;

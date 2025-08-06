@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log/slog"
 	"net/http"
 	"net/url"
 	"os"
@@ -66,9 +67,14 @@ func (a *App) getData() ([]Item, error) {
 		}
 		defer resp.Body.Close()
 
+		if resp.StatusCode != http.StatusOK {
+			slog.Error("Failed to fetch data", "status", resp.StatusCode)
+		}
+
 		records := Response{}
 		err = json.NewDecoder(resp.Body).Decode(&records)
 		if err != nil {
+			slog.Error("Failed to decode JSON response", "error", err)
 			return Response{}, err
 		}
 

@@ -1,12 +1,14 @@
 package main
 
 import (
+	"log/slog"
 	"os"
 )
 
 func main() {
 	app := buildDefaultApp()
 	err := app.auth()
+	slog.SetLogLoggerLevel(slog.LevelDebug)
 	if err != nil {
 		panic(err)
 	}

@@ -1,6 +1,9 @@
 package main
 
 import (
+	"strings"
+	"time"
+
 	"github.com/shopspring/decimal"
 )
 
@@ -34,13 +37,29 @@ type Data struct {
 	Amount         decimal.Decimal `json:"amount"`
 	ID             int             `json:"id"`
 }
+
+type PocketBaseTime struct {
+	time.Time
+}
+
+func (ct *PocketBaseTime) UnmarshalJSON(b []byte) error {
+	str := strings.Trim(string(b), `"`)
+	parsedTime, err := time.Parse("2006-01-02 15:04:05.999Z", str)
+	if err != nil {
+		return err
+	}
+	ct.Time = parsedTime
+	return nil
+}
+
 type Item struct {
-	ID             string `json:"id"`
-	CollectionID   string `json:"collectionId"`
-	CollectionName string `json:"collectionName"`
-	Created        string `json:"created"`
-	Updated        string `json:"updated"`
-	Data           Data   `json:"data"`
+	Data
+	ID             string         `json:"id"`
+	CollectionID   string         `json:"collectionId"`
+	CollectionName string         `json:"collectionName"`
+	Created        string         `json:"created"`
+	Updated        string         `json:"updated"`
+	OrderDate      PocketBaseTime `json:"orderDate"`
 }
 type Response struct {
 	Page       int    `json:"page"`

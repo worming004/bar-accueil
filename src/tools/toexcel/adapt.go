@@ -3,15 +3,17 @@ package main
 import (
 	"encoding/csv"
 	"io"
+	"log/slog"
 	"strconv"
+	"time"
 
 	"github.com/shopspring/decimal"
 )
 
 type Flat struct {
-	FlatID  int
-	ID      string
-	Created string
+	FlatID    int
+	ID        string
+	OrderDate string
 
 	IsElectronique    bool
 	IsCash            bool
@@ -28,17 +30,21 @@ type Flat struct {
 func denormalize(items []Item) []Flat {
 	counter := 0
 	res := []Flat{}
+	loc, err := time.LoadLocation("Europe/Brussels")
+	if err != nil {
+		panic(err)
+	}
 	for _, item := range items {
 		for _, token := range item.Data.ItemWithCount {
 			f := Flat{
 				FlatID:            counter,
 				ID:                item.ID,
-				Created:           item.Created,
-				IsElectronique:    item.Data.IsElectronique,
-				IsCash:            item.Data.IsCash,
-				CashReceived:      item.Data.CashReceived,
-				CashToGiveBack:    item.Data.CashToGiveBack,
-				TransactionAmount: item.Data.Amount,
+				OrderDate:         item.OrderDate.In(loc).Format(time.Layout),
+				IsElectronique:    item.IsElectronique,
+				IsCash:            item.IsCash,
+				CashReceived:      item.CashReceived,
+				CashToGiveBack:    item.CashToGiveBack,
+				TransactionAmount: item.Amount,
 				ItemName:          token.Name,
 				ItemAmount:        amountOnTokens(token.Tokens, token.Count),
 				SingleItemAmount:  amountOnTokens(token.Tokens, 1),
@@ -63,9 +69,10 @@ func amountOnTokens(ts []Token, count int) decimal.Decimal {
 
 func toCsv(w io.Writer, fl []Flat) {
 	csvWriter := csv.NewWriter(w)
+	slog.Debug("Writing CSV header")
 	csvWriter.Write([]string{
 		"FlatID",
-		"ID",
+		"OrderID",
 		"Created",
 		"IsElectronique",
 		"IsCash",
@@ -77,11 +84,13 @@ func toCsv(w io.Writer, fl []Flat) {
 		"SingleItemAmount",
 		"Count",
 	})
+	slog.Debug("will start write lines", "LINES", len(fl))
 	for _, f := range fl {
+		slog.Debug("Writing flat", "ID", f.ID)
 		csvWriter.Write([]string{
 			strconv.Itoa(f.FlatID),
 			f.ID,
-			f.Created,
+			f.OrderDate,
 			strconv.FormatBool(f.IsElectronique),
 			strconv.FormatBool(f.IsCash),
 			f.CashReceived.String(),
