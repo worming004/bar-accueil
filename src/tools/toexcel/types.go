@@ -12,6 +12,7 @@ type Auth struct {
 type App struct {
 	Auth
 	PerPage int
+	Server  string
 }
 
 type Token struct {

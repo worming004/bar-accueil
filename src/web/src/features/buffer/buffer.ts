@@ -1,6 +1,8 @@
 import PocketBase from "pocketbase";
 import { Command } from "./command";
 
+import config from "../../config";
+
 export class Buffer {
   public static instance: Buffer = new Buffer("Production");
   public static getInstance(): Buffer {
@@ -19,7 +21,7 @@ export class Buffer {
       db.createObjectStore("commands", { keyPath: "id", autoIncrement: true });
     }
 
-    setInterval(() => { this.tryUpload() }, 15000);
+    setInterval(() => { this.tryUpload() }, 5000);
   };
 
   addCommand(command: Command) {
@@ -61,13 +63,12 @@ export class Buffer {
       const toSend = transaction.objectStore("commands").getAll();
       toSend.onsuccess = function() {
         try {
-          const pb = new PocketBase('https://pocketbase.bar.craftlabit.be');
+          const pb = new PocketBase(config.backendUrl);
           console.log("try to send " + toSend.result.length.toString() + " number of command");
           toSend.result.forEach((command: Command) => {
-            const data = { data: JSON.stringify(command) };
 
             try {
-              const prom = pb.collection("paiement").create(data, { requestKey: null });
+              const prom = pb.collection("paiements").create(command);
               prom.then(() => {
                 if (command.id === undefined) {
                   return

@@ -4,9 +4,9 @@ import { store } from "../../app/store";
 import { authenticate, logoff, selectUserIsAuthenticated } from "../counter/counterSlice";
 import { useAppSelector } from "../../app/hooks";
 import { getBufferByEnv } from "../buffer/buffer";
+import config from "../../config";
 
-const pb = new PocketBase('https://pocketbase.bar.craftlabit.be');
-//const pb = new PocketBase('http://localhost:8090');
+const pb = new PocketBase(config.backendUrl);
 
 function HeaderApp(props: any) {
 
@@ -15,7 +15,7 @@ function HeaderApp(props: any) {
   const [password, setPassword] = useState('');
   async function handleLogin() {
     try {
-      const { token } = await pb.collection('users').authWithPassword("bar", password);
+      const { token } = await pb.collection('users').authWithPassword("rally@craftlabit.be", password);
       store.dispatch(authenticate(token));
       const buffer = getBufferByEnv();
       buffer.setToken(token);

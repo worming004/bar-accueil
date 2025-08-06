@@ -20,7 +20,7 @@ func (a *App) auth() error {
 	if err != nil {
 		return err
 	}
-	res, err := http.Post("https://pocketbase.bar.craftlabit.be/api/collections/users/auth-with-password", "application/json", bytes.NewBuffer(requestBody))
+	res, err := http.Post(a.Server+"/api/collections/users/auth-with-password", "application/json", bytes.NewBuffer(requestBody))
 	if err != nil {
 		return err
 	}
@@ -42,7 +42,7 @@ func (a *App) auth() error {
 }
 
 func (a *App) defaultRequest() *http.Request {
-	request, err := http.NewRequest("GET", "https://pocketbase.bar.craftlabit.be/api/collections/paiement/records?perPage=40&sort=-id", nil)
+	request, err := http.NewRequest("GET", a.Server+"/api/collections/paiements/records?perPage=40&sort=-id", nil)
 	if err != nil {
 		panic(err)
 	}
@@ -100,6 +100,8 @@ func buildDefaultApp() *App {
 	app := App{}
 	user := os.Getenv("USER")
 	pass := os.Getenv("PASS")
+	url := os.Getenv("URL")
+	app.Server = url
 	app.Auth = Auth{User: user, Pass: pass}
 	return &app
 }
