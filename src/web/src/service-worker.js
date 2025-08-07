@@ -53,7 +53,10 @@ registerRoute(
   new StaleWhileRevalidate({
     cacheName: 'all',
     plugins: [
-      NetworkFirst()
+      new ExpirationPlugin({
+        maxAgeSeconds: 3 * 24 * 60 * 60, // Cache for 3 days
+        maxEntries: 200, // Limit the number of cached entries
+      })
     ],
   })
 );
