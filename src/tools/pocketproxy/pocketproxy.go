@@ -52,7 +52,7 @@ func (a *App) defaultRequest() *http.Request {
 	return request
 }
 
-func (a *App) GetData() ([]Item, error) {
+func (a *App) GetCompleteData() ([]Item, error) {
 	getPerPage := func(page int) (Response, error) {
 		request := a.defaultRequest()
 		u, err := url.Parse(request.URL.String() + "&page=" + strconv.Itoa(page))
@@ -69,6 +69,7 @@ func (a *App) GetData() ([]Item, error) {
 
 		if resp.StatusCode != http.StatusOK {
 			slog.Error("Failed to fetch data", "status", resp.StatusCode)
+			return Response{}, fmt.Errorf("failed to fetch data, status code: %d", resp.StatusCode)
 		}
 
 		records := Response{}
@@ -102,6 +103,7 @@ func (a *App) GetData() ([]Item, error) {
 
 	return res, nil
 }
+
 func BuildDefaultApp() *App {
 	app := App{}
 	user := os.Getenv("USER")

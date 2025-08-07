@@ -14,7 +14,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	response, err := app.GetData()
+	response, err := app.GetCompleteData()
 	if err != nil {
 		panic(err)
 	}

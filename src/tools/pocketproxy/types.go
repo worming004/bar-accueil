@@ -52,6 +52,20 @@ func (ct *PocketBaseTime) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type PocketBaseDate struct {
+	time.Time
+}
+
+func (ct *PocketBaseDate) UnmarshalJSON(b []byte) error {
+	str := strings.Trim(string(b), `"`)
+	parsedTime, err := time.Parse("2006-01-02", str)
+	if err != nil {
+		return err
+	}
+	ct.Time = parsedTime
+	return nil
+}
+
 type Item struct {
 	Data
 	ID             string         `json:"id"`
