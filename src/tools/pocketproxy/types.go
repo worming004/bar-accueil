@@ -1,4 +1,4 @@
-package main
+package pocketproxy
 
 import (
 	"strings"

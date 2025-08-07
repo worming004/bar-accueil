@@ -1,4 +1,4 @@
-package main
+package pocketproxy
 
 import (
 	"bytes"
@@ -13,7 +13,7 @@ import (
 	"strings"
 )
 
-func (a *App) auth() error {
+func (a *App) Authenticate() error {
 	requestBody, err := json.Marshal(map[string]string{
 		"identity": a.User,
 		"password": a.Pass,
@@ -52,7 +52,7 @@ func (a *App) defaultRequest() *http.Request {
 	return request
 }
 
-func (a *App) getData() ([]Item, error) {
+func (a *App) GetData() ([]Item, error) {
 	getPerPage := func(page int) (Response, error) {
 		request := a.defaultRequest()
 		u, err := url.Parse(request.URL.String() + "&page=" + strconv.Itoa(page))
@@ -102,7 +102,7 @@ func (a *App) getData() ([]Item, error) {
 
 	return res, nil
 }
-func buildDefaultApp() *App {
+func BuildDefaultApp() *App {
 	app := App{}
 	user := os.Getenv("USER")
 	pass := os.Getenv("PASS")

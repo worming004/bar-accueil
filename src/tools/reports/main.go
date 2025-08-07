@@ -2,7 +2,6 @@ package main
 
 import (
 	"log/slog"
-	"os"
 
 	"github.com/worming004/bar-accueil/src/tools/pocketproxy"
 )
@@ -14,15 +13,4 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	response, err := app.GetData()
-	if err != nil {
-		panic(err)
-	}
-
-	fl := denormalize(response)
-	f, err := os.OpenFile("output.csv", os.O_CREATE|os.O_WRONLY, 0644)
-	if err != nil {
-		panic(err)
-	}
-	toCsv(f, fl)
 }

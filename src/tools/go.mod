@@ -1,4 +1,4 @@
-module github.com/worming004/bar-accueil/src/tools/toexcel
+module github.com/worming004/bar-accueil/src/tools
 
 go 1.23.1
 

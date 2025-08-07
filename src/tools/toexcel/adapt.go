@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/shopspring/decimal"
+	"github.com/worming004/bar-accueil/src/tools/pocketproxy"
 )
 
 type Flat struct {
@@ -27,7 +28,7 @@ type Flat struct {
 	Count            int
 }
 
-func denormalize(items []Item) []Flat {
+func denormalize(items []pocketproxy.Item) []Flat {
 	counter := 0
 	res := []Flat{}
 	loc, err := time.LoadLocation("Europe/Brussels")
@@ -58,7 +59,7 @@ func denormalize(items []Item) []Flat {
 	return res
 }
 
-func amountOnTokens(ts []Token, count int) decimal.Decimal {
+func amountOnTokens(ts []pocketproxy.Token, count int) decimal.Decimal {
 	res := decimal.Zero
 	for _, t := range ts {
 		res = res.Add(t.Value)
